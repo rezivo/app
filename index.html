@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rezivo</title>
+
+  <!-- BLOC DESIGN - încarcă stilurile aplicației -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- BLOC FUNDAL - aspect premium general -->
+  <main class="app-shell">
+    <section class="login-card">
+      <!-- BLOC BRAND - numele produsului -->
+      <div class="brand-block">
+        <div class="brand-mark">R</div>
+        <h1>REZIVO</h1>
+        <p>Platformă SaaS pentru programări și administrare servicii</p>
+      </div>
+
+      <!-- BLOC LOGIN - gestionează conectarea -->
+      <form id="loginForm" class="login-form">
+        <label for="email">Email</label>
+        <input id="email" type="email" autocomplete="email" required />
+
+        <label for="password">Parolă</label>
+        <input id="password" type="password" autocomplete="current-password" required />
+
+        <button type="submit" id="loginButton">Intră în Rezivo</button>
+      </form>
+
+      <!-- BLOC STATUS - mesaje clare pentru utilizator -->
+      <div id="messageBox" class="message-box hidden"></div>
+
+      <!-- BLOC UTILIZATOR - apare după login reușit -->
+      <section id="userPanel" class="user-panel hidden">
+        <h2 id="welcomeTitle">Conectat</h2>
+        <p id="accountType"></p>
+        <p id="companyInfo"></p>
+        <p id="permissionInfo"></p>
+        <button type="button" id="logoutButton" class="secondary-button">Ieșire</button>
+      </section>
+    </section>
+  </main>
+
+  <!-- BLOC SUPABASE - biblioteca oficială -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- BLOC CONEXIUNE - date publice Supabase -->
+  <script src="js/supabase.js"></script>
+
+  <!-- BLOC AUTENTIFICARE - login, logout, verificare identitate -->
+  <script src="js/auth.js"></script>
+</body>
+</html>
