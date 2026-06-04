@@ -1,0 +1,156 @@
+/* BLOC GENERAL - reset simplu și sigur */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #2b2418 0%, #050505 55%, #000 100%);
+  color: #ffffff;
+}
+
+/* BLOC PAGINĂ - centrează aplicația */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* BLOC CARD LOGIN - container principal */
+.login-card {
+  width: 100%;
+  max-width: 430px;
+  padding: 30px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  border-radius: 26px;
+  background: rgba(8, 8, 8, 0.92);
+  box-shadow: 0 0 45px rgba(212, 175, 55, 0.18);
+}
+
+/* BLOC BRAND - identitate Rezivo */
+.brand-block {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.brand-mark {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  background: linear-gradient(135deg, #f7e7a0, #c79b27);
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.brand-block h1 {
+  margin: 0;
+  letter-spacing: 4px;
+  color: #d4af37;
+  font-size: 34px;
+}
+
+.brand-block p {
+  margin: 10px 0 0;
+  color: #c9c9c9;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* BLOC FORMULAR - câmpuri login */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-form label {
+  color: #e2c766;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 14px 15px;
+  border-radius: 14px;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  background: #101010;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: #d4af37;
+}
+
+.login-form button,
+.secondary-button {
+  margin-top: 12px;
+  width: 100%;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f7e7a0, #c79b27);
+  color: #000;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.secondary-button {
+  background: transparent;
+  color: #d4af37;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+/* BLOC MESAJE - erori și confirmări */
+.message-box {
+  margin-top: 18px;
+  padding: 13px 14px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.4;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  color: #f2d978;
+}
+
+.message-box.error {
+  background: rgba(125, 25, 25, 0.35);
+  border-color: rgba(255, 100, 100, 0.45);
+  color: #ffb4b4;
+}
+
+/* BLOC PANEL UTILIZATOR - rezultat după login */
+.user-panel {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.user-panel h2 {
+  margin: 0 0 10px;
+  color: #d4af37;
+  font-size: 20px;
+}
+
+.user-panel p {
+  margin: 7px 0;
+  color: #dfdfdf;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.hidden {
+  display: none;
+}
