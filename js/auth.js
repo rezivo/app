@@ -1,6 +1,14 @@
 /* BLOC ELEMENTE HTML - legături cu pagina */
 const loginForm = document.getElementById('loginForm');
 const loginButton = document.getElementById('loginButton');
+const passwordInput = document.getElementById('password');
+const togglePasswordButton = document.getElementById('togglePasswordButton');
+const forgotPasswordButton = document.getElementById('forgotPasswordButton');
+const resetPasswordPanel = document.getElementById('resetPasswordPanel');
+const resetPasswordForm = document.getElementById('resetPasswordForm');
+const newPasswordInput = document.getElementById('newPassword');
+const confirmNewPasswordInput = document.getElementById('confirmNewPassword');
+const saveNewPasswordButton = document.getElementById('saveNewPasswordButton');
 const logoutButton = document.getElementById('logoutButton');
 const messageBox = document.getElementById('messageBox');
 const userPanel = document.getElementById('userPanel');
@@ -36,6 +44,42 @@ function hideMessage() {
   messageBox.classList.remove('error');
 }
 
+/* BLOC PAROLĂ LOGIN */
+function togglePasswordVisibility() {
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    togglePasswordButton.textContent = '🙈';
+    togglePasswordButton.setAttribute('aria-label', 'Ascunde parola');
+    return;
+  }
+
+  passwordInput.type = 'password';
+  togglePasswordButton.textContent = '👁';
+  togglePasswordButton.setAttribute('aria-label', 'Arată parola');
+}
+
+/* BLOC RESETARE PAROLĂ */
+function isPasswordRecoveryLink() {
+  return window.location.href.includes('type=recovery');
+}
+
+function showResetPasswordPanel() {
+  loginForm.classList.add('hidden');
+  userPanel.classList.add('hidden');
+  dashboardPanel.classList.add('hidden');
+  settingsPanel.classList.add('hidden');
+  accountInfoButton.classList.add('hidden');
+  resetPasswordPanel.classList.remove('hidden');
+  closeAccountModal();
+  showMessage('Alege o parolă nouă pentru contul tău.');
+}
+
+function hideResetPasswordPanel() {
+  resetPasswordPanel.classList.add('hidden');
+  newPasswordInput.value = '';
+  confirmNewPasswordInput.value = '';
+}
+
 /* BLOC POPUP CONT */
 function openAccountModal() {
   accountModal.classList.remove('hidden');
@@ -64,6 +108,7 @@ function resetUserPanel() {
   dashboardPanel.classList.add('hidden');
   settingsPanel.classList.add('hidden');
   accountInfoButton.classList.add('hidden');
+  hideResetPasswordPanel();
   closeAccountModal();
 
   dashboardSubtitle.textContent = 'Test aplicație';
@@ -169,6 +214,75 @@ async function loadLoggedUser(authUserId) {
   showMessage('Contul există, dar nu are acces configurat în Rezivo.', 'error');
 }
 
+/* BLOC TRIMITERE EMAIL RESETARE PAROLĂ */
+async function sendPasswordResetEmail() {
+  const email = document.getElementById('email').value.trim();
+
+  if (!email) {
+    showMessage('Scrie emailul contului, apoi apasă „Am uitat parola”.', 'error');
+    return;
+  }
+
+  forgotPasswordButton.disabled = true;
+  forgotPasswordButton.textContent = 'Se trimite emailul...';
+
+  try {
+    const { error } = await rezivoSupabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + window.location.pathname
+    });
+
+    if (error) throw error;
+
+    showMessage('Ți-am trimis email pentru resetarea parolei. Verifică și Spam/Promotions.');
+  } catch (error) {
+    showMessage(error.message || 'Nu s-a putut trimite emailul de resetare.', 'error');
+  } finally {
+    forgotPasswordButton.disabled = false;
+    forgotPasswordButton.textContent = 'Am uitat parola';
+  }
+}
+
+/* BLOC SALVARE PAROLĂ NOUĂ */
+resetPasswordForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const newPassword = newPasswordInput.value;
+  const confirmNewPassword = confirmNewPasswordInput.value;
+
+  if (newPassword.length < 6) {
+    showMessage('Parola trebuie să aibă minimum 6 caractere.', 'error');
+    return;
+  }
+
+  if (newPassword !== confirmNewPassword) {
+    showMessage('Parolele nu sunt identice.', 'error');
+    return;
+  }
+
+  saveNewPasswordButton.disabled = true;
+  saveNewPasswordButton.textContent = 'Se salvează...';
+
+  try {
+    const { error } = await rezivoSupabase.auth.updateUser({
+      password: newPassword
+    });
+
+    if (error) throw error;
+
+    await rezivoSupabase.auth.signOut();
+    hideResetPasswordPanel();
+    resetUserPanel();
+    loginForm.classList.remove('hidden');
+    window.history.replaceState({}, document.title, window.location.pathname);
+    showMessage('Parola a fost schimbată. Te poți conecta cu parola nouă.');
+  } catch (error) {
+    showMessage(error.message || 'Nu s-a putut schimba parola.', 'error');
+  } finally {
+    saveNewPasswordButton.disabled = false;
+    saveNewPasswordButton.textContent = 'Salvează parola nouă';
+  }
+});
+
 /* BLOC LOGIN */
 loginForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -217,6 +331,11 @@ async function checkExistingSession() {
       return;
     }
 
+    if (isPasswordRecoveryLink()) {
+      showResetPasswordPanel();
+      return;
+    }
+
     await loadLoggedUser(data.session.user.id);
   } catch (error) {
     console.log('Nu s-a putut verifica sesiunea existentă:', error);
@@ -224,6 +343,8 @@ async function checkExistingSession() {
 }
 
 /* BLOC EVENIMENTE */
+togglePasswordButton.addEventListener('click', togglePasswordVisibility);
+forgotPasswordButton.addEventListener('click', sendPasswordResetEmail);
 logoutButton.addEventListener('click', logoutRezivo);
 modalLogoutButton.addEventListener('click', closeAccountModal);
 accountInfoButton.addEventListener('click', openAccountModal);
