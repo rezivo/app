@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rezivo</title>
 
+  <!-- BLOC FONT - font premium folosit în aplicație -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
   <!-- BLOC DESIGN - încarcă stilurile aplicației -->
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -37,6 +40,7 @@
 
       <!-- BLOC UTILIZATOR - apare după login reușit -->
       <section id="userPanel" class="user-panel hidden">
+        <!-- BLOC HEADER UTILIZATOR - afișează contul conectat -->
         <div class="user-header">
           <div>
             <h2 id="welcomeTitle">Conectat</h2>
@@ -53,33 +57,97 @@
         <!-- BLOC DASHBOARD - primul ecran vizibil după login -->
         <section id="dashboardPanel" class="dashboard-panel hidden">
           <div class="dashboard-title-row">
-            <h3>Panou administrare</h3>
+            <h3>REZUMAT CONT</h3>
             <span id="dashboardSubtitle">Test aplicație</span>
           </div>
 
-          <div class="dashboard-grid">
-            <article class="dashboard-card">
-              <span class="card-kicker">Companie</span>
-              <strong id="dashboardCompanyName">-</strong>
-              <small>date citite din Supabase</small>
+          <!-- BLOC REZUMAT - carduri mici aurii ca stil Manea -->
+          <div class="summary-grid">
+            <article class="summary-card">
+              <div class="summary-top">
+                <div class="summary-icon">R</div>
+                <div class="summary-info">
+                  <div class="summary-number">1</div>
+                  <div class="summary-name">Companie<br>activă</div>
+                </div>
+              </div>
             </article>
 
-            <article class="dashboard-card">
-              <span class="card-kicker">Servicii</span>
-              <strong>Configurare</strong>
-              <small>serviciile oferite de companie</small>
+            <article class="summary-card">
+              <div class="summary-top">
+                <div class="summary-icon">✓</div>
+                <div class="summary-info">
+                  <div class="summary-number">OK</div>
+                  <div class="summary-name">Login<br>valid</div>
+                </div>
+              </div>
             </article>
 
-            <article class="dashboard-card">
-              <span class="card-kicker">Resurse</span>
-              <strong>Administrare</strong>
-              <small>persoane, cabinete sau săli</small>
+            <article class="summary-card">
+              <div class="summary-top">
+                <div class="summary-icon">⏱</div>
+                <div class="summary-info">
+                  <div class="summary-number">Slot</div>
+                  <div class="summary-name">Config<br>orar</div>
+                </div>
+              </div>
             </article>
 
-            <article class="dashboard-card">
-              <span class="card-kicker">Program lucru</span>
-              <strong>Orar</strong>
-              <small>zile, ore și intervale active</small>
+            <article class="summary-card">
+              <div class="summary-top">
+                <div class="summary-icon">⚙</div>
+                <div class="summary-info">
+                  <div class="summary-number">Set</div>
+                  <div class="summary-name">Module<br>active</div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- BLOC BANDĂ INFO - numele companiei citit din Supabase -->
+          <div class="company-ticker">
+            <div class="company-track">
+              <span class="ticker-label">Companie:</span>
+              <span id="dashboardCompanyName" class="ticker-name">-</span>
+            </div>
+          </div>
+
+          <!-- BLOC MENIU - carduri compacte pentru modulele aplicației -->
+          <div class="dashboard-menu">
+            <article class="quick-card">
+              <div class="quick-icon">⚙</div>
+              <div class="quick-text">
+                <div class="quick-main">SETĂRI COMPANIE</div>
+                <div class="quick-sub">slot orar, module active, configurări</div>
+              </div>
+              <div class="quick-tip">›</div>
+            </article>
+
+            <article class="quick-card">
+              <div class="quick-icon">☰</div>
+              <div class="quick-text">
+                <div class="quick-main">SERVICII</div>
+                <div class="quick-sub">denumire și durată, fără prețuri afișate</div>
+              </div>
+              <div class="quick-tip">›</div>
+            </article>
+
+            <article class="quick-card">
+              <div class="quick-icon">◉</div>
+              <div class="quick-text">
+                <div class="quick-main">RESURSE</div>
+                <div class="quick-sub">persoane, cabinete, săli sau puncte de lucru</div>
+              </div>
+              <div class="quick-tip">›</div>
+            </article>
+
+            <article class="quick-card">
+              <div class="quick-icon">◷</div>
+              <div class="quick-text">
+                <div class="quick-main">PROGRAM LUCRU</div>
+                <div class="quick-sub">zile, ore și disponibilitate pe resurse</div>
+              </div>
+              <div class="quick-tip">›</div>
             </article>
           </div>
         </section>
@@ -88,6 +156,30 @@
       </section>
     </section>
   </main>
+
+
+
+  <!-- BLOC AUTOSCALING - potrivește cadrul de telefon pe desktop -->
+  <script>
+    function ajusteazaTelefonRezivo() {
+      if (window.innerWidth < 701) {
+        document.documentElement.style.setProperty('--desktop-phone-scale', '1');
+        return;
+      }
+
+      const latimeTelefon = 430;
+      const inaltimeTelefon = 920;
+      const margineSiguranta = 32;
+      const scalaLatime = (window.innerWidth - margineSiguranta) / latimeTelefon;
+      const scalaInaltime = (window.innerHeight - margineSiguranta) / inaltimeTelefon;
+      const scalaFinala = Math.min(1, scalaLatime, scalaInaltime);
+
+      document.documentElement.style.setProperty('--desktop-phone-scale', scalaFinala.toFixed(3));
+    }
+
+    window.addEventListener('load', ajusteazaTelefonRezivo);
+    window.addEventListener('resize', ajusteazaTelefonRezivo);
+  </script>
 
   <!-- BLOC SUPABASE - biblioteca oficială -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
