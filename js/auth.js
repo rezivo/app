@@ -8,6 +8,10 @@ const welcomeTitle = document.getElementById('welcomeTitle');
 const accountType = document.getElementById('accountType');
 const companyInfo = document.getElementById('companyInfo');
 const permissionInfo = document.getElementById('permissionInfo');
+const dashboardPanel = document.getElementById('dashboardPanel');
+const dashboardCompanyName = document.getElementById('dashboardCompanyName');
+const dashboardSubtitle = document.getElementById('dashboardSubtitle');
+const accessBadge = document.getElementById('accessBadge');
 
 /* BLOC MESAJ - afișează mesaje fără popup de browser */
 function showMessage(text, type = 'info') {
@@ -22,10 +26,14 @@ function showMessage(text, type = 'info') {
 /* BLOC CURĂȚARE ECRAN - ascunde informațiile după logout */
 function resetUserPanel() {
   userPanel.classList.add('hidden');
+  dashboardPanel.classList.add('hidden');
   welcomeTitle.textContent = 'Conectat';
   accountType.textContent = '';
   companyInfo.textContent = '';
   permissionInfo.textContent = '';
+  dashboardCompanyName.textContent = '-';
+  dashboardSubtitle.textContent = 'Test aplicație';
+  accessBadge.textContent = 'ACCES';
 }
 
 /* BLOC ADMIN REZIVO - verifică dacă userul este administrator platformă */
@@ -66,10 +74,27 @@ async function getCompanyUserProfile(authUserId) {
   return data;
 }
 
+/* BLOC DASHBOARD - pregătește primul ecran vizibil al aplicației */
+function showDashboard(profileType, profile) {
+  dashboardPanel.classList.remove('hidden');
+
+  if (profileType === 'admin_rezivo') {
+    dashboardCompanyName.textContent = 'Rezivo Platform';
+    dashboardSubtitle.textContent = profile.super_admin ? 'Super Admin' : 'Admin Rezivo';
+    accessBadge.textContent = profile.super_admin ? 'SUPER ADMIN' : 'ADMIN';
+    return;
+  }
+
+  dashboardCompanyName.textContent = profile.companii?.nume || 'Companie necunoscută';
+  dashboardSubtitle.textContent = profile.posturi_companie?.nume || 'Post necunoscut';
+  accessBadge.textContent = profile.posturi_companie?.full_access ? 'FULL ACCESS' : 'ACCES LIMITAT';
+}
+
 /* BLOC AFIȘARE PROFIL - arată clar cine s-a logat */
 function showLoggedUser(profileType, profile) {
   loginForm.classList.add('hidden');
   userPanel.classList.remove('hidden');
+  showDashboard(profileType, profile);
 
   if (profileType === 'admin_rezivo') {
     welcomeTitle.textContent = `Bine ai venit, ${profile.nume}`;
