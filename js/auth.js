@@ -4,14 +4,18 @@ const loginButton = document.getElementById('loginButton');
 const logoutButton = document.getElementById('logoutButton');
 const messageBox = document.getElementById('messageBox');
 const userPanel = document.getElementById('userPanel');
-const welcomeTitle = document.getElementById('welcomeTitle');
-const accountType = document.getElementById('accountType');
-const companyInfo = document.getElementById('companyInfo');
-const permissionInfo = document.getElementById('permissionInfo');
 const dashboardPanel = document.getElementById('dashboardPanel');
-const dashboardCompanyName = document.getElementById('dashboardCompanyName');
 const dashboardSubtitle = document.getElementById('dashboardSubtitle');
-const accessBadge = document.getElementById('accessBadge');
+const accountInfoButton = document.getElementById('accountInfoButton');
+const accountModal = document.getElementById('accountModal');
+const accountModalBackdrop = document.getElementById('accountModalBackdrop');
+const accountModalClose = document.getElementById('accountModalClose');
+const modalLogoutButton = document.getElementById('modalLogoutButton');
+const modalName = document.getElementById('modalName');
+const modalAccountType = document.getElementById('modalAccountType');
+const modalCompany = document.getElementById('modalCompany');
+const modalPost = document.getElementById('modalPost');
+const modalFullAccess = document.getElementById('modalFullAccess');
 
 /* BLOC MESAJ - afișează mesaje fără popup de browser */
 function showMessage(text, type = 'info') {
@@ -23,17 +27,37 @@ function showMessage(text, type = 'info') {
   }
 }
 
+/* BLOC MESAJ REUȘIT - nu ocupă spațiu după login */
+function hideMessage() {
+  messageBox.textContent = '';
+  messageBox.classList.add('hidden');
+  messageBox.classList.remove('error');
+}
+
+/* BLOC POPUP CONT - deschide și închide informațiile contului */
+function openAccountModal() {
+  accountModal.classList.remove('hidden');
+  accountModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeAccountModal() {
+  accountModal.classList.add('hidden');
+  accountModal.setAttribute('aria-hidden', 'true');
+}
+
 /* BLOC CURĂȚARE ECRAN - ascunde informațiile după logout */
 function resetUserPanel() {
   userPanel.classList.add('hidden');
   dashboardPanel.classList.add('hidden');
-  welcomeTitle.textContent = 'Conectat';
-  accountType.textContent = '';
-  companyInfo.textContent = '';
-  permissionInfo.textContent = '';
-  dashboardCompanyName.textContent = '-';
+  accountInfoButton.classList.add('hidden');
+  closeAccountModal();
+
   dashboardSubtitle.textContent = 'Test aplicație';
-  accessBadge.textContent = 'ACCES';
+  modalName.textContent = '-';
+  modalAccountType.textContent = '-';
+  modalCompany.textContent = '-';
+  modalPost.textContent = '-';
+  modalFullAccess.textContent = '-';
 }
 
 /* BLOC ADMIN REZIVO - verifică dacă userul este administrator platformă */
@@ -77,39 +101,41 @@ async function getCompanyUserProfile(authUserId) {
 /* BLOC DASHBOARD - pregătește primul ecran vizibil al aplicației */
 function showDashboard(profileType, profile) {
   dashboardPanel.classList.remove('hidden');
+  accountInfoButton.classList.remove('hidden');
 
   if (profileType === 'admin_rezivo') {
-    dashboardCompanyName.textContent = 'Rezivo Platform';
     dashboardSubtitle.textContent = profile.super_admin ? 'Super Admin' : 'Admin Rezivo';
-    accessBadge.textContent = profile.super_admin ? 'SUPER ADMIN' : 'ADMIN';
     return;
   }
 
-  dashboardCompanyName.textContent = profile.companii?.nume || 'Companie necunoscută';
   dashboardSubtitle.textContent = profile.posturi_companie?.nume || 'Post necunoscut';
-  accessBadge.textContent = profile.posturi_companie?.full_access ? 'FULL ACCESS' : 'ACCES LIMITAT';
 }
 
-/* BLOC AFIȘARE PROFIL - arată clar cine s-a logat */
+/* BLOC POPUP DATE CONT - pune informațiile în popup, nu pe pagină */
+function fillAccountModal(profileType, profile) {
+  if (profileType === 'admin_rezivo') {
+    modalName.textContent = profile.nume || '-';
+    modalAccountType.textContent = 'Admin Rezivo';
+    modalCompany.textContent = 'Rezivo Platform';
+    modalPost.textContent = profile.super_admin ? 'Super Admin' : 'Admin Rezivo';
+    modalFullAccess.textContent = profile.super_admin ? 'DA' : 'NU';
+    return;
+  }
+
+  modalName.textContent = profile.nume || '-';
+  modalAccountType.textContent = 'Utilizator companie';
+  modalCompany.textContent = profile.companii?.nume || 'Companie necunoscută';
+  modalPost.textContent = profile.posturi_companie?.nume || 'Post necunoscut';
+  modalFullAccess.textContent = profile.posturi_companie?.full_access ? 'DA' : 'NU';
+}
+
+/* BLOC AFIȘARE PROFIL - arată dashboardul curat după login */
 function showLoggedUser(profileType, profile) {
   loginForm.classList.add('hidden');
   userPanel.classList.remove('hidden');
   showDashboard(profileType, profile);
-
-  if (profileType === 'admin_rezivo') {
-    welcomeTitle.textContent = `Bine ai venit, ${profile.nume}`;
-    accountType.textContent = 'Tip cont: Admin Rezivo';
-    companyInfo.textContent = 'Acces: platformă Rezivo';
-    permissionInfo.textContent = profile.super_admin ? 'Drepturi: Super Admin' : 'Drepturi: Admin Rezivo';
-    showMessage('Login reușit. Cont Admin Rezivo identificat corect.');
-    return;
-  }
-
-  welcomeTitle.textContent = `Bine ai venit, ${profile.nume}`;
-  accountType.textContent = 'Tip cont: Utilizator companie';
-  companyInfo.textContent = `Companie: ${profile.companii?.nume || 'necunoscută'}`;
-  permissionInfo.textContent = `Post: ${profile.posturi_companie?.nume || 'necunoscut'} | FULL_ACCESS: ${profile.posturi_companie?.full_access ? 'DA' : 'NU'}`;
-  showMessage('Login reușit. Utilizatorul companiei a fost identificat corect.');
+  fillAccountModal(profileType, profile);
+  hideMessage();
 }
 
 /* BLOC LOGIN - conectare prin Supabase Auth */
@@ -158,10 +184,16 @@ loginForm.addEventListener('submit', async (event) => {
   }
 });
 
-/* BLOC LOGOUT - ieșire sigură, fără localStorage */
-logoutButton.addEventListener('click', async () => {
+/* BLOC LOGOUT - ieșire sigură */
+async function logoutRezivo() {
   await rezivoSupabase.auth.signOut();
   resetUserPanel();
   loginForm.classList.remove('hidden');
   showMessage('Ai ieșit din Rezivo.');
-});
+}
+
+logoutButton.addEventListener('click', logoutRezivo);
+modalLogoutButton.addEventListener('click', logoutRezivo);
+accountInfoButton.addEventListener('click', openAccountModal);
+accountModalClose.addEventListener('click', closeAccountModal);
+accountModalBackdrop.addEventListener('click', closeAccountModal);
