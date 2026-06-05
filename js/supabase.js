@@ -11,6 +11,7 @@ const rezivoSupabase = window.supabase.createClient(
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true
+      storage: window.sessionStorage
     }
   }
 );
