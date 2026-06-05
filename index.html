@@ -154,50 +154,8 @@
 
 
 
-        <!-- BLOC SETĂRI COMPANIE - pagină vizuală pentru configurări -->
-        <section id="settingsPanel" class="settings-panel hidden">
-          <div class="settings-top-row">
-            <button type="button" id="settingsBackButton" class="settings-back-button">‹</button>
-            <div>
-              <h3>SETĂRI COMPANIE</h3>
-              <span>Configurare vizuală inițială</span>
-            </div>
-          </div>
-
-          <div class="settings-section">
-            <div class="settings-section-title">Durata slotului în orar</div>
-            <div class="slot-choice-grid">
-              <button type="button" class="slot-choice" data-slot-minutes="15">15 min</button>
-              <button type="button" class="slot-choice active" data-slot-minutes="30">30 min</button>
-              <button type="button" class="slot-choice" data-slot-minutes="60">60 min</button>
-            </div>
-            <p class="settings-help">Slotul controlează cum apar orele în orar. Durata serviciului poate ocupa unul sau mai multe sloturi.</p>
-          </div>
-
-          <div class="settings-section">
-            <div class="settings-section-title">Module vizibile în aplicație</div>
-            <div class="module-list">
-              <label class="module-row"><span>Programări</span><input type="checkbox" data-module-code="PROGRAMARI" checked><i></i></label>
-              <label class="module-row"><span>Clienți</span><input type="checkbox" data-module-code="CLIENTI" checked><i></i></label>
-              <label class="module-row"><span>Servicii</span><input type="checkbox" data-module-code="SERVICII" checked><i></i></label>
-              <label class="module-row"><span>Resurse</span><input type="checkbox" data-module-code="RESURSE" checked><i></i></label>
-              <label class="module-row"><span>Program lucru</span><input type="checkbox" data-module-code="PROGRAM_LUCRU" checked><i></i></label>
-              <label class="module-row"><span>Campanii & Evenimente</span><input type="checkbox" data-module-code="CAMPANII_EVENIMENTE"><i></i></label>
-              <label class="module-row"><span>Aplicație client</span><input type="checkbox" data-module-code="APLICATIE_CLIENT"><i></i></label>
-              <label class="module-row"><span>Rapoarte</span><input type="checkbox" data-module-code="RAPOARTE" checked><i></i></label>
-            </div>
-          </div>
-
-          <div class="settings-section">
-            <div class="settings-section-title">Reguli generale</div>
-            <div class="module-list">
-              <label class="module-row"><span>Permite programări online</span><input id="onlineBookingsToggle" type="checkbox" checked><i></i></label>
-              <label class="module-row"><span>Necesită confirmare</span><input id="confirmationRequiredToggle" type="checkbox" checked><i></i></label>
-            </div>
-          </div>
-
-          <button type="button" class="settings-save-button">Salvare va fi activată în pasul următor</button>
-        </section>
+        <!-- BLOC SETĂRI COMPANIE - conținutul este încărcat separat din pages/setari-companie.html -->
+        <section id="settingsPanel" class="settings-panel hidden" data-page="pages/setari-companie.html"></section>
 
         <button type="button" id="logoutButton" class="secondary-button">Ieșire</button>
       </section>
@@ -286,6 +244,9 @@
 
   <!-- BLOC CONEXIUNE - date publice Supabase -->
   <script src="js/supabase.js"></script>
+
+  <!-- BLOC SETĂRI COMPANIE - modul separat pentru setările firmei -->
+  <script src="js/setari-companie.js"></script>
 
   <!-- BLOC AUTENTIFICARE - login, logout, verificare identitate -->
   <script src="js/auth.js"></script>
