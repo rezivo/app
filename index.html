@@ -12,9 +12,11 @@
   <!-- BLOC FUNDAL - aspect premium general -->
   <main class="app-shell">
     <section class="login-card">
-      <!-- BLOC BRAND - numele produsului -->
+      <!-- BLOC BRAND - loc pregătit pentru logo-ul final Rezivo -->
       <div class="brand-block">
-        <div class="brand-mark">R</div>
+        <div class="brand-logo-area">
+          <div class="brand-mark">R</div>
+        </div>
         <h1>REZIVO</h1>
         <p>Platformă SaaS pentru programări și administrare servicii</p>
       </div>
@@ -35,10 +37,53 @@
 
       <!-- BLOC UTILIZATOR - apare după login reușit -->
       <section id="userPanel" class="user-panel hidden">
-        <h2 id="welcomeTitle">Conectat</h2>
-        <p id="accountType"></p>
-        <p id="companyInfo"></p>
-        <p id="permissionInfo"></p>
+        <div class="user-header">
+          <div>
+            <h2 id="welcomeTitle">Conectat</h2>
+            <p id="accountType"></p>
+          </div>
+          <span id="accessBadge" class="access-badge">ACCES</span>
+        </div>
+
+        <div class="user-details">
+          <p id="companyInfo"></p>
+          <p id="permissionInfo"></p>
+        </div>
+
+        <!-- BLOC DASHBOARD - primul ecran vizibil după login -->
+        <section id="dashboardPanel" class="dashboard-panel hidden">
+          <div class="dashboard-title-row">
+            <h3>Panou administrare</h3>
+            <span id="dashboardSubtitle">Test aplicație</span>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="dashboard-card">
+              <span class="card-kicker">Companie</span>
+              <strong id="dashboardCompanyName">-</strong>
+              <small>date citite din Supabase</small>
+            </article>
+
+            <article class="dashboard-card">
+              <span class="card-kicker">Servicii</span>
+              <strong>Configurare</strong>
+              <small>serviciile oferite de companie</small>
+            </article>
+
+            <article class="dashboard-card">
+              <span class="card-kicker">Resurse</span>
+              <strong>Administrare</strong>
+              <small>persoane, cabinete sau săli</small>
+            </article>
+
+            <article class="dashboard-card">
+              <span class="card-kicker">Program lucru</span>
+              <strong>Orar</strong>
+              <small>zile, ore și intervale active</small>
+            </article>
+          </div>
+        </section>
+
         <button type="button" id="logoutButton" class="secondary-button">Ieșire</button>
       </section>
     </section>
