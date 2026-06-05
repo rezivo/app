@@ -20,7 +20,7 @@ const settingsMenuButton = document.getElementById('settingsMenuButton');
 const settingsPanel = document.getElementById('settingsPanel');
 const settingsBackButton = document.getElementById('settingsBackButton');
 
-/* BLOC MESAJ - afișează mesaje fără popup de browser */
+/* BLOC MESAJ */
 function showMessage(text, type = 'info') {
   messageBox.textContent = text;
   messageBox.classList.remove('hidden', 'error');
@@ -30,14 +30,13 @@ function showMessage(text, type = 'info') {
   }
 }
 
-/* BLOC MESAJ REUȘIT - nu ocupă spațiu după login */
 function hideMessage() {
   messageBox.textContent = '';
   messageBox.classList.add('hidden');
   messageBox.classList.remove('error');
 }
 
-/* BLOC POPUP CONT - deschide și închide informațiile contului */
+/* BLOC POPUP CONT */
 function openAccountModal() {
   accountModal.classList.remove('hidden');
   accountModal.setAttribute('aria-hidden', 'false');
@@ -48,7 +47,7 @@ function closeAccountModal() {
   accountModal.setAttribute('aria-hidden', 'true');
 }
 
-/* BLOC SETĂRI COMPANIE - deschide și închide pagina vizuală de setări */
+/* BLOC SETĂRI COMPANIE */
 function openSettingsPanel() {
   dashboardPanel.classList.add('hidden');
   settingsPanel.classList.remove('hidden');
@@ -59,7 +58,7 @@ function closeSettingsPanel() {
   dashboardPanel.classList.remove('hidden');
 }
 
-/* BLOC CURĂȚARE ECRAN - ascunde informațiile după logout */
+/* BLOC CURĂȚARE ECRAN */
 function resetUserPanel() {
   userPanel.classList.add('hidden');
   dashboardPanel.classList.add('hidden');
@@ -75,7 +74,7 @@ function resetUserPanel() {
   modalFullAccess.textContent = '-';
 }
 
-/* BLOC ADMIN REZIVO - verifică dacă userul este administrator platformă */
+/* BLOC ADMIN REZIVO */
 async function getAdminRezivoProfile(authUserId) {
   const { data, error } = await rezivoSupabase
     .from('admin_rezivo')
@@ -84,14 +83,11 @@ async function getAdminRezivoProfile(authUserId) {
     .eq('activ', true)
     .maybeSingle();
 
-  if (error) {
-    throw error;
-  }
-
+  if (error) throw error;
   return data;
 }
 
-/* BLOC UTILIZATOR COMPANIE - verifică firma, postul și accesul */
+/* BLOC UTILIZATOR COMPANIE */
 async function getCompanyUserProfile(authUserId) {
   const { data, error } = await rezivoSupabase
     .from('utilizatori')
@@ -106,16 +102,14 @@ async function getCompanyUserProfile(authUserId) {
     .eq('activ', true)
     .maybeSingle();
 
-  if (error) {
-    throw error;
-  }
-
+  if (error) throw error;
   return data;
 }
 
-/* BLOC DASHBOARD - pregătește primul ecran vizibil al aplicației */
+/* BLOC DASHBOARD */
 function showDashboard(profileType, profile) {
   dashboardPanel.classList.remove('hidden');
+  settingsPanel.classList.add('hidden');
   accountInfoButton.classList.remove('hidden');
 
   if (profileType === 'admin_rezivo') {
@@ -126,7 +120,7 @@ function showDashboard(profileType, profile) {
   dashboardSubtitle.textContent = profile.posturi_companie?.nume || 'Post necunoscut';
 }
 
-/* BLOC POPUP DATE CONT - pune informațiile în popup, nu pe pagină */
+/* BLOC POPUP DATE CONT */
 function fillAccountModal(profileType, profile) {
   if (profileType === 'admin_rezivo') {
     modalName.textContent = profile.nume || '-';
@@ -144,7 +138,7 @@ function fillAccountModal(profileType, profile) {
   modalFullAccess.textContent = profile.posturi_companie?.full_access ? 'DA' : 'NU';
 }
 
-/* BLOC AFIȘARE PROFIL - arată dashboardul curat după login */
+/* BLOC AFIȘARE PROFIL */
 function showLoggedUser(profileType, profile) {
   loginForm.classList.add('hidden');
   userPanel.classList.remove('hidden');
@@ -153,7 +147,29 @@ function showLoggedUser(profileType, profile) {
   hideMessage();
 }
 
-/* BLOC LOGIN - conectare prin Supabase Auth */
+/* BLOC VERIFICARE USER LOGAT */
+async function loadLoggedUser(authUserId) {
+  const adminRezivoProfile = await getAdminRezivoProfile(authUserId);
+
+  if (adminRezivoProfile) {
+    showLoggedUser('admin_rezivo', adminRezivoProfile);
+    return;
+  }
+
+  const companyUserProfile = await getCompanyUserProfile(authUserId);
+
+  if (companyUserProfile) {
+    showLoggedUser('company_user', companyUserProfile);
+    return;
+  }
+
+  await rezivoSupabase.auth.signOut();
+  resetUserPanel();
+  loginForm.classList.remove('hidden');
+  showMessage('Contul există, dar nu are acces configurat în Rezivo.', 'error');
+}
+
+/* BLOC LOGIN */
 loginForm.addEventListener('submit', async (event) => {
   event.preventDefault();
 
@@ -175,22 +191,7 @@ loginForm.addEventListener('submit', async (event) => {
       throw new Error('Email sau parolă greșită.');
     }
 
-    const adminRezivoProfile = await getAdminRezivoProfile(data.user.id);
-
-    if (adminRezivoProfile) {
-      showLoggedUser('admin_rezivo', adminRezivoProfile);
-      return;
-    }
-
-    const companyUserProfile = await getCompanyUserProfile(data.user.id);
-
-    if (companyUserProfile) {
-      showLoggedUser('company_user', companyUserProfile);
-      return;
-    }
-
-    await rezivoSupabase.auth.signOut();
-    throw new Error('Contul există, dar nu are acces configurat în Rezivo.');
+    await loadLoggedUser(data.user.id);
   } catch (error) {
     showMessage(error.message || 'Nu s-a putut face login.', 'error');
   } finally {
@@ -199,7 +200,7 @@ loginForm.addEventListener('submit', async (event) => {
   }
 });
 
-/* BLOC LOGOUT - ieșire sigură */
+/* BLOC LOGOUT */
 async function logoutRezivo() {
   await rezivoSupabase.auth.signOut();
   resetUserPanel();
@@ -207,6 +208,22 @@ async function logoutRezivo() {
   showMessage('Ai ieșit din Rezivo.');
 }
 
+/* BLOC SESIUNE LA REFRESH */
+async function checkExistingSession() {
+  try {
+    const { data, error } = await rezivoSupabase.auth.getSession();
+
+    if (error || !data.session || !data.session.user) {
+      return;
+    }
+
+    await loadLoggedUser(data.session.user.id);
+  } catch (error) {
+    console.log('Nu s-a putut verifica sesiunea existentă:', error);
+  }
+}
+
+/* BLOC EVENIMENTE */
 logoutButton.addEventListener('click', logoutRezivo);
 modalLogoutButton.addEventListener('click', closeAccountModal);
 accountInfoButton.addEventListener('click', openAccountModal);
@@ -215,27 +232,5 @@ accountModalBackdrop.addEventListener('click', closeAccountModal);
 settingsMenuButton.addEventListener('click', openSettingsPanel);
 settingsBackButton.addEventListener('click', closeSettingsPanel);
 
-
-/* BLOC SESIUNE ACTIVĂ - păstrează utilizatorul logat la refresh */
-async function verificaSesiuneActiva() {
-  const { data } = await rezivoSupabase.auth.getUser();
-
-  if (!data.user) {
-    return;
-  }
-
-  const adminRezivoProfile = await getAdminRezivoProfile(data.user.id);
-
-  if (adminRezivoProfile) {
-    showLoggedUser('admin_rezivo', adminRezivoProfile);
-    return;
-  }
-
-  const companyUserProfile = await getCompanyUserProfile(data.user.id);
-
-  if (companyUserProfile) {
-    showLoggedUser('company_user', companyUserProfile);
-  }
-}
-
-verificaSesiuneActiva();
+/* BLOC PORNIRE */
+checkExistingSession();
