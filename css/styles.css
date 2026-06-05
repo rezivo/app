@@ -138,9 +138,49 @@ body {
   outline: none;
 }
 
-.login-form input:focus {
+'.login-form input:focus {
   border-color: #f2c94c;
   box-shadow: 0 0 0 2px rgba(242, 201, 76, 0.12);
+}
+
+/* BLOC PAROLĂ LOGIN - ochi pentru afișare/ascundere */
+.password-field-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.password-field-wrap input {
+  padding-right: 48px;
+}
+
+.password-eye-button {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 34px !important;
+  height: 34px;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(242, 201, 76, 0.34) !important;
+  background: rgba(0, 0, 0, 0.42) !important;
+  color: #f2c94c !important;
+  font-size: 15px !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}
+
+.forgot-password-button {
+  margin-top: 2px !important;
+  padding: 4px 4px 0 !important;
+  border: none !important;
+  background: transparent !important;
+  color: #f2c94c !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  text-align: center;
+  box-shadow: none !important;
 }
 
 .login-form button,
@@ -186,6 +226,32 @@ body {
   background: rgba(125, 25, 25, 0.35);
   border-color: rgba(255, 100, 100, 0.45);
   color: #ffb4b4;
+}
+
+/* BLOC RESETARE PAROLĂ - ecran separat pentru parolă nouă */
+.reset-password-panel {
+  margin-top: 12px;
+  padding: 13px 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(242, 201, 76, 0.44);
+  background: rgba(0, 0, 0, 0.30);
+}
+
+.reset-password-panel h3 {
+  margin: 0 0 6px;
+  color: #f2c94c;
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+}
+
+.reset-password-panel p {
+  margin: 0 0 12px;
+  color: #cfcfcf;
+  font-size: 10px;
+  line-height: 1.35;
+  font-weight: 600;
 }
 
 /* BLOC PANEL UTILIZATOR - conține doar aplicația, nu datele contului */
