@@ -138,7 +138,7 @@ body {
   outline: none;
 }
 
-'.login-form input:focus {
+.login-form input:focus {
   border-color: #f2c94c;
   box-shadow: 0 0 0 2px rgba(242, 201, 76, 0.12);
 }
@@ -815,4 +815,55 @@ body {
   font-weight: 900;
   cursor: default;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* BLOC CORECȚIE OCHI PAROLĂ - poziționare în interiorul casetei */
+.login-form .password-field-wrap {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.login-form .password-field-wrap input {
+  padding-right: 54px;
+}
+
+.login-form .password-eye-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 34px !important;
+  min-width: 34px !important;
+  max-width: 34px !important;
+  height: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  border: none !important;
+  background: transparent !important;
+  color: #f2c94c !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none !important;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.login-form .forgot-password-button {
+  width: auto !important;
+  align-self: flex-end;
+  margin-top: 4px !important;
+  padding: 2px 0 0 !important;
+  border: none !important;
+  background: transparent !important;
+  color: #f2c94c !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  text-align: right;
+  text-decoration: underline;
+  box-shadow: none !important;
 }
