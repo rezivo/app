@@ -33,6 +33,7 @@ body {
 
 /* BLOC CARD PRINCIPAL - container premium tip telefon */
 .login-card {
+  position: relative;
   width: 100%;
   max-width: 430px;
   min-height: 100vh;
@@ -44,6 +45,25 @@ body {
     0 0 0 3px rgba(255, 255, 255, 0.04),
     0 0 32px rgba(242, 201, 76, 0.22),
     0 34px 74px rgba(0, 0, 0, 0.82);
+}
+
+/* BLOC BUTON CONT - deschide popupul de informații */
+.account-info-button {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 20;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #f2c94c;
+  background: rgba(0, 0, 0, 0.72);
+  color: #f2c94c;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 0 13px rgba(242, 201, 76, 0.34);
 }
 
 /* BLOC BRAND - identitate Rezivo */
@@ -124,7 +144,8 @@ body {
 }
 
 .login-form button,
-.secondary-button {
+.secondary-button,
+.modal-logout-button {
   margin-top: 9px;
   width: 100%;
   padding: 13px 16px;
@@ -141,13 +162,14 @@ body {
 }
 
 .secondary-button {
+  margin-top: 14px;
   background: linear-gradient(145deg, #171717, #050505);
   color: #f2c94c;
   border: 1px solid #9f7814;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* BLOC MESAJE - erori și confirmări */
+/* BLOC MESAJE - erori și verificare login */
 .message-box {
   margin-top: 11px;
   padding: 10px 12px;
@@ -166,55 +188,16 @@ body {
   color: #ffb4b4;
 }
 
-/* BLOC PANEL UTILIZATOR - rezultat după login */
+/* BLOC PANEL UTILIZATOR - conține doar aplicația, nu datele contului */
 .user-panel {
   margin-top: 13px;
   padding-top: 12px;
   border-top: 1px solid rgba(242, 201, 76, 0.22);
 }
 
-.user-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.user-panel h2 {
-  margin: 0 0 5px;
-  color: #f2c94c;
-  font-size: 15px;
-  font-weight: 900;
-  line-height: 1.1;
-}
-
-.user-panel p {
-  margin: 4px 0;
-  color: #dfdfdf;
-  font-size: 10.5px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-
-.access-badge {
-  flex: 0 0 auto;
-  padding: 6px 8px;
-  border-radius: 999px;
-  background: rgba(242, 201, 76, 0.12);
-  border: 1px solid rgba(242, 201, 76, 0.40);
-  color: #f2d978;
-  font-size: 8.5px;
-  font-weight: 900;
-  letter-spacing: 0.7px;
-}
-
-.user-details {
-  margin-bottom: 8px;
-}
-
 /* BLOC DASHBOARD - container pentru meniul principal */
 .dashboard-panel {
-  margin-top: 11px;
+  margin-top: 0;
 }
 
 .dashboard-title-row {
@@ -244,14 +227,14 @@ body {
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  margin-bottom: 8px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
 .summary-card {
-  min-height: 54px;
-  border-radius: 7px;
-  padding: 4px 3px 3px;
+  min-height: 64px;
+  border-radius: 9px;
+  padding: 6px 4px 5px;
   background: linear-gradient(145deg, #ffe27a 0%, #d6a72d 56%, #b98208 100%);
   border: 1px solid #ffd75a;
   box-shadow:
@@ -263,17 +246,17 @@ body {
 
 .summary-top {
   display: grid;
-  grid-template-columns: 16px 1fr;
-  column-gap: 3px;
+  grid-template-columns: 18px 1fr;
+  column-gap: 4px;
   align-items: start;
 }
 
 .summary-icon {
-  width: 15px;
-  height: 15px;
-  margin-top: 3px;
+  width: 17px;
+  height: 17px;
+  margin-top: 4px;
   color: #050505;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 900;
   display: flex;
   align-items: center;
@@ -289,7 +272,7 @@ body {
 }
 
 .summary-number {
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1;
   font-weight: 900;
   color: #000000;
@@ -297,8 +280,8 @@ body {
 }
 
 .summary-name {
-  margin-top: 3px;
-  font-size: 6.8px;
+  margin-top: 4px;
+  font-size: 7px;
   line-height: 1.08;
   font-weight: 900;
   color: #000000;
@@ -306,76 +289,36 @@ body {
   text-align: center;
 }
 
-/* BLOC BANDĂ INFO - compania activă */
-.company-ticker {
-  height: 38px;
-  border-radius: 7px;
-  border: 1px solid #b98b18;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.96), rgba(22, 22, 22, 0.96), rgba(0, 0, 0, 0.96));
-  box-shadow:
-    inset 0 0 18px rgba(242, 201, 76, 0.11),
-    0 0 10px rgba(0, 0, 0, 0.50);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 8px;
-  padding: 0 11px;
-}
-
-.company-track {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  min-width: 0;
-}
-
-.ticker-label {
-  color: #f2c94c;
-  font-size: 12px;
-  font-weight: 900;
-  white-space: nowrap;
-}
-
-.ticker-name {
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 900;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 /* BLOC MENIU - carduri compacte negre */
 .dashboard-menu {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 5px;
+  gap: 8px;
 }
 
 .quick-card {
-  min-height: 50px;
-  border-radius: 7px;
+  min-height: 58px;
+  border-radius: 10px;
   border: 1px solid #b98b18;
   background: linear-gradient(145deg, #1a1a1a 0%, #070707 100%);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.08),
     0 5px 12px rgba(0, 0, 0, 0.60);
-  padding: 6px 8px;
+  padding: 8px 10px;
   display: grid;
-  grid-template-columns: 22px 1fr 13px;
+  grid-template-columns: 25px 1fr 14px;
   align-items: center;
-  gap: 7px;
+  gap: 9px;
   color: #ffffff;
   cursor: pointer;
 }
 
 .quick-icon {
-  width: 19px;
-  height: 19px;
+  width: 22px;
+  height: 22px;
   color: #f2c94c;
   filter: drop-shadow(0 0 5px rgba(242, 201, 76, 0.42));
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 900;
   display: flex;
   align-items: center;
@@ -390,7 +333,7 @@ body {
 }
 
 .quick-main {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
   font-weight: 900;
   color: #f2c94c;
@@ -398,23 +341,143 @@ body {
 }
 
 .quick-sub {
-  font-size: 7.5px;
-  line-height: 1.15;
+  font-size: 8px;
+  line-height: 1.2;
   color: #ffffff;
   font-weight: 600;
-  margin-top: 4px;
+  margin-top: 5px;
 }
 
 .quick-tip {
   color: #f2c94c;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1;
   font-weight: 500;
   text-align: right;
 }
 
+/* BLOC POPUP CONT - informații cont fără spațiu ocupat permanent */
+.account-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.account-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.account-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 18px;
+  border: 1px solid rgba(242, 201, 76, 0.72);
+  background: linear-gradient(145deg, rgba(19, 19, 19, 0.98), rgba(3, 3, 3, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 28px rgba(242, 201, 76, 0.24),
+    0 30px 55px rgba(0, 0, 0, 0.82);
+  padding: 18px 16px 16px;
+}
+
+.modal-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid rgba(242, 201, 76, 0.22);
+}
+
+.modal-title-row h2 {
+  margin: 0;
+  color: #f2c94c;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+}
+
+.modal-close-button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: #f2c94c;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal-info-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-info-row {
+  min-height: 62px;
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(242, 201, 76, 0.22);
+}
+
+.modal-info-row-inline {
+  grid-template-columns: 38px 1fr auto;
+}
+
+.modal-info-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(242, 201, 76, 0.44);
+  color: #f2c94c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(242, 201, 76, 0.08);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.modal-info-row span {
+  display: block;
+  color: #cfcfcf;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.modal-info-row strong {
+  display: block;
+  color: #f2c94c;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.modal-pill {
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #ffe27a 0%, #d6a72d 56%, #b98208 100%);
+  color: #000000 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.modal-logout-button {
+  margin-top: 16px;
+}
+
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* BLOC DESKTOP - păstrează aplicația ca telefon centrat */
@@ -438,7 +501,6 @@ body {
   }
 
   .login-card {
-    position: relative;
     width: 430px;
     max-width: 430px;
     height: 920px;
@@ -483,6 +545,11 @@ body {
     border-radius: 20px;
     z-index: 6;
   }
+
+  .account-info-button {
+    top: 78px;
+    right: 24px;
+  }
 }
 
 /* BLOC TELEFOANE MICI - păstrează totul lizibil */
@@ -500,10 +567,14 @@ body {
   }
 
   .summary-grid {
-    gap: 3px;
+    gap: 4px;
+  }
+
+  .summary-card {
+    min-height: 60px;
   }
 
   .quick-main {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
