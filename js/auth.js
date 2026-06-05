@@ -193,7 +193,7 @@ async function logoutRezivo() {
 }
 
 logoutButton.addEventListener('click', logoutRezivo);
-modalLogoutButton.addEventListener('click', logoutRezivo);
+modalLogoutButton.addEventListener('click', closeAccountModal);
 accountInfoButton.addEventListener('click', openAccountModal);
 accountModalClose.addEventListener('click', closeAccountModal);
 accountModalBackdrop.addEventListener('click', closeAccountModal);
