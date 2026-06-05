@@ -27,6 +27,15 @@ const modalFullAccess = document.getElementById('modalFullAccess');
 const settingsMenuButton = document.getElementById('settingsMenuButton');
 const settingsPanel = document.getElementById('settingsPanel');
 const settingsBackButton = document.getElementById('settingsBackButton');
+const slotChoiceButtons = document.querySelectorAll('[data-slot-minutes]');
+const moduleCheckboxes = document.querySelectorAll('[data-module-code]');
+const onlineBookingsToggle = document.getElementById('onlineBookingsToggle');
+const confirmationRequiredToggle = document.getElementById('confirmationRequiredToggle');
+
+/* BLOC STARE UTILIZATOR - păstrează compania curentă pentru setări */
+let currentProfileType = null;
+let currentCompanyId = null;
+
 
 /* BLOC MESAJ */
 function showMessage(text, type = 'info') {
@@ -80,6 +89,114 @@ function hideResetPasswordPanel() {
   confirmNewPasswordInput.value = '';
 }
 
+/* BLOC AJUTOR SETĂRI COMPANIE */
+function normalizeRezivoText(value) {
+  return String(value || '')
+    .trim()
+    .toUpperCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/&/g, ' SI ')
+    .replace(/[^A-Z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+}
+
+function readBooleanValue(value, fallback = false) {
+  if (typeof value === 'boolean') return value;
+  if (value === 1 || value === '1') return true;
+  if (value === 0 || value === '0') return false;
+  if (typeof value === 'string') {
+    const normalizedValue = value.trim().toLowerCase();
+    if (['true', 'da', 'yes', 'active', 'activ'].includes(normalizedValue)) return true;
+    if (['false', 'nu', 'no', 'inactive', 'inactiv'].includes(normalizedValue)) return false;
+  }
+  return fallback;
+}
+
+function readFirstValue(source, keys, fallback = null) {
+  if (!source) return fallback;
+
+  for (const key of keys) {
+    if (source[key] !== undefined && source[key] !== null) {
+      return source[key];
+    }
+  }
+
+  return fallback;
+}
+
+function setActiveSlotChoice(minutes) {
+  slotChoiceButtons.forEach((button) => {
+    button.classList.toggle('active', Number(button.dataset.slotMinutes) === Number(minutes));
+  });
+}
+
+function applyModuleSettings(modules) {
+  const modulesByCode = new Map();
+
+  modules.forEach((moduleItem) => {
+    const code = normalizeRezivoText(readFirstValue(moduleItem, ['cod_modul', 'modul_cod', 'cod', 'cheie', 'nume_modul', 'nume']));
+    if (code) modulesByCode.set(code, moduleItem);
+  });
+
+  moduleCheckboxes.forEach((checkbox) => {
+    const expectedCode = normalizeRezivoText(checkbox.dataset.moduleCode);
+    const moduleItem = modulesByCode.get(expectedCode);
+
+    if (!moduleItem) return;
+
+    checkbox.checked = readBooleanValue(readFirstValue(moduleItem, ['activ', 'active', 'enabled', 'este_activ'], checkbox.checked), checkbox.checked);
+  });
+}
+
+function applyCompanySettings(settings) {
+  const slotMinutes = readFirstValue(settings, ['interval_programari_minute', 'slot_minute', 'durata_slot_minute'], 30);
+  setActiveSlotChoice(slotMinutes);
+
+  onlineBookingsToggle.checked = readBooleanValue(
+    readFirstValue(settings, ['permite_programari_online', 'programari_online', 'online_booking_enabled'], onlineBookingsToggle.checked),
+    onlineBookingsToggle.checked
+  );
+
+  confirmationRequiredToggle.checked = readBooleanValue(
+    readFirstValue(settings, ['necesita_confirmare', 'confirmare_necesara', 'require_confirmation'], confirmationRequiredToggle.checked),
+    confirmationRequiredToggle.checked
+  );
+}
+
+async function loadCompanySettingsForDisplay() {
+  if (currentProfileType !== 'company_user' || !currentCompanyId) {
+    showMessage('Setările companiei sunt disponibile doar pentru conturile de companie.', 'error');
+    return;
+  }
+
+  try {
+    const { data: settingsData, error: settingsError } = await rezivoSupabase
+      .from('setari_companie')
+      .select('*')
+      .eq('companie_id', currentCompanyId)
+      .maybeSingle();
+
+    if (settingsError) throw settingsError;
+
+    if (settingsData) {
+      applyCompanySettings(settingsData);
+    }
+
+    const { data: modulesData, error: modulesError } = await rezivoSupabase
+      .from('module_companie')
+      .select('*')
+      .eq('companie_id', currentCompanyId);
+
+    if (modulesError) throw modulesError;
+
+    applyModuleSettings(modulesData || []);
+    hideMessage();
+  } catch (error) {
+    showMessage(error.message || 'Nu s-au putut citi setările companiei.', 'error');
+  }
+}
+
 /* BLOC POPUP CONT */
 function openAccountModal() {
   accountModal.classList.remove('hidden');
@@ -92,9 +209,11 @@ function closeAccountModal() {
 }
 
 /* BLOC SETĂRI COMPANIE */
-function openSettingsPanel() {
+async function openSettingsPanel() {
   dashboardPanel.classList.add('hidden');
   settingsPanel.classList.remove('hidden');
+  showMessage('Citesc setările companiei...');
+  await loadCompanySettingsForDisplay();
 }
 
 function closeSettingsPanel() {
@@ -104,6 +223,8 @@ function closeSettingsPanel() {
 
 /* BLOC CURĂȚARE ECRAN */
 function resetUserPanel() {
+  currentProfileType = null;
+  currentCompanyId = null;
   userPanel.classList.add('hidden');
   dashboardPanel.classList.add('hidden');
   settingsPanel.classList.add('hidden');
@@ -137,6 +258,8 @@ async function getCompanyUserProfile(authUserId) {
   const { data, error } = await rezivoSupabase
     .from('utilizatori')
     .select(`
+      companie_id,
+      post_id,
       nume,
       email,
       activ,
@@ -185,6 +308,9 @@ function fillAccountModal(profileType, profile) {
 
 /* BLOC AFIȘARE PROFIL */
 function showLoggedUser(profileType, profile) {
+  currentProfileType = profileType;
+  currentCompanyId = profileType === 'company_user' ? profile.companie_id : null;
+
   loginForm.classList.add('hidden');
   userPanel.classList.remove('hidden');
   showDashboard(profileType, profile);
