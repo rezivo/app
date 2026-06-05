@@ -1,14 +1,25 @@
 /* BLOC GENERAL - reset simplu și sigur */
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: #020202;
+  color: #ffffff;
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #2b2418 0%, #050505 55%, #000 100%);
-  color: #ffffff;
+  background:
+    radial-gradient(circle at top center, rgba(120, 82, 10, 0.34) 0%, rgba(0, 0, 0, 0.96) 42%, #000 100%);
+  overflow-x: hidden;
 }
 
 /* BLOC PAGINĂ - centrează aplicația */
@@ -17,24 +28,28 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 10px 8px 12px;
 }
 
-/* BLOC CARD LOGIN - container principal */
+/* BLOC CARD PRINCIPAL - container premium tip telefon */
 .login-card {
   width: 100%;
   max-width: 430px;
-  padding: 30px;
-  border: 1px solid rgba(212, 175, 55, 0.45);
-  border-radius: 26px;
-  background: rgba(8, 8, 8, 0.92);
-  box-shadow: 0 0 45px rgba(212, 175, 55, 0.18);
+  min-height: 100vh;
+  padding: 18px 12px 14px;
+  border: 1px solid rgba(242, 201, 76, 0.82);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(18, 18, 18, 0.98) 0%, rgba(7, 7, 7, 0.98) 100%);
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.04),
+    0 0 32px rgba(242, 201, 76, 0.22),
+    0 34px 74px rgba(0, 0, 0, 0.82);
 }
 
 /* BLOC BRAND - identitate Rezivo */
 .brand-block {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
 
 .brand-logo-area {
@@ -44,91 +59,104 @@ body {
 }
 
 .brand-mark {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 14px;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 8px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #000;
-  background: linear-gradient(135deg, #f7e7a0, #c79b27);
-  font-size: 32px;
-  font-weight: 800;
-  box-shadow: 0 0 28px rgba(212, 175, 55, 0.24);
+  color: #000000;
+  background: linear-gradient(145deg, #ffe27a 0%, #d6a72d 56%, #b98208 100%);
+  font-size: 31px;
+  font-weight: 900;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.60),
+    0 0 18px rgba(242, 201, 76, 0.38);
 }
 
 .brand-block h1 {
   margin: 0;
   letter-spacing: 4px;
-  color: #d4af37;
-  font-size: 34px;
+  color: #f2c94c;
+  font-size: 31px;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .brand-block p {
-  margin: 10px 0 0;
-  color: #c9c9c9;
-  font-size: 14px;
-  line-height: 1.4;
+  margin: 8px 0 0;
+  color: #cfcfcf;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
 }
 
 /* BLOC FORMULAR - câmpuri login */
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .login-form label {
-  color: #e2c766;
-  font-size: 13px;
-  font-weight: 700;
+  color: #f2c94c;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
 }
 
 .login-form input {
   width: 100%;
-  padding: 14px 15px;
-  border-radius: 14px;
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(242, 201, 76, 0.45);
   background: #101010;
   color: #ffffff;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 600;
   outline: none;
 }
 
 .login-form input:focus {
-  border-color: #d4af37;
+  border-color: #f2c94c;
+  box-shadow: 0 0 0 2px rgba(242, 201, 76, 0.12);
 }
 
 .login-form button,
 .secondary-button {
-  margin-top: 12px;
+  margin-top: 9px;
   width: 100%;
-  padding: 14px 18px;
+  padding: 13px 16px;
   border: none;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #f7e7a0, #c79b27);
-  color: #000;
-  font-size: 15px;
-  font-weight: 800;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #ffe27a 0%, #d6a72d 56%, #b98208 100%);
+  color: #000000;
+  font-size: 13px;
+  font-weight: 900;
   cursor: pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 6px 14px rgba(0, 0, 0, 0.58);
 }
 
 .secondary-button {
-  background: transparent;
-  color: #d4af37;
-  border: 1px solid rgba(212, 175, 55, 0.45);
+  background: linear-gradient(145deg, #171717, #050505);
+  color: #f2c94c;
+  border: 1px solid #9f7814;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* BLOC MESAJE - erori și confirmări */
 .message-box {
-  margin-top: 18px;
-  padding: 13px 14px;
-  border-radius: 14px;
-  font-size: 14px;
-  line-height: 1.4;
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.35);
+  margin-top: 11px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  background: rgba(242, 201, 76, 0.11);
+  border: 1px solid rgba(242, 201, 76, 0.32);
   color: #f2d978;
 }
 
@@ -140,130 +168,342 @@ body {
 
 /* BLOC PANEL UTILIZATOR - rezultat după login */
 .user-panel {
-  margin-top: 22px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  margin-top: 13px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(242, 201, 76, 0.22);
 }
 
 .user-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .user-panel h2 {
-  margin: 0 0 10px;
-  color: #d4af37;
-  font-size: 20px;
+  margin: 0 0 5px;
+  color: #f2c94c;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.1;
 }
 
 .user-panel p {
-  margin: 7px 0;
+  margin: 4px 0;
   color: #dfdfdf;
-  font-size: 14px;
-  line-height: 1.4;
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .access-badge {
   flex: 0 0 auto;
-  padding: 7px 10px;
+  padding: 6px 8px;
   border-radius: 999px;
-  background: rgba(212, 175, 55, 0.12);
-  border: 1px solid rgba(212, 175, 55, 0.38);
+  background: rgba(242, 201, 76, 0.12);
+  border: 1px solid rgba(242, 201, 76, 0.40);
   color: #f2d978;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.8px;
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: 0.7px;
 }
 
 .user-details {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
-/* BLOC DASHBOARD - carduri compacte premium */
+/* BLOC DASHBOARD - container pentru meniul principal */
 .dashboard-panel {
-  margin-top: 18px;
-  padding: 16px;
-  border-radius: 22px;
-  background: linear-gradient(180deg, rgba(212, 175, 55, 0.10), rgba(255, 255, 255, 0.025));
-  border: 1px solid rgba(212, 175, 55, 0.26);
+  margin-top: 11px;
 }
 
 .dashboard-title-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 8px;
+  margin-bottom: 7px;
 }
 
 .dashboard-title-row h3 {
   margin: 0;
   color: #ffffff;
-  font-size: 15px;
+  font-size: 12px;
+  line-height: 1;
   font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .dashboard-title-row span {
-  color: #d4af37;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.dashboard-card {
-  min-height: 92px;
-  padding: 13px;
-  border-radius: 18px;
-  background: rgba(0, 0, 0, 0.48);
-  border: 1px solid rgba(212, 175, 55, 0.24);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.card-kicker {
-  display: block;
-  margin-bottom: 8px;
-  color: #d4af37;
-  font-size: 11px;
+  color: #f2c94c;
+  font-size: 9px;
   font-weight: 800;
-  letter-spacing: 0.5px;
 }
 
-.dashboard-card strong {
-  display: block;
+/* BLOC REZUMAT - carduri aurii mici */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.summary-card {
+  min-height: 54px;
+  border-radius: 7px;
+  padding: 4px 3px 3px;
+  background: linear-gradient(145deg, #ffe27a 0%, #d6a72d 56%, #b98208 100%);
+  border: 1px solid #ffd75a;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.60),
+    inset 0 -12px 22px rgba(90, 55, 0, 0.20),
+    0 5px 11px rgba(0, 0, 0, 0.65);
+  color: #050505;
+}
+
+.summary-top {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  column-gap: 3px;
+  align-items: start;
+}
+
+.summary-icon {
+  width: 15px;
+  height: 15px;
+  margin-top: 3px;
+  color: #050505;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 0;
+}
+
+.summary-number {
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: -0.6px;
+}
+
+.summary-name {
+  margin-top: 3px;
+  font-size: 6.8px;
+  line-height: 1.08;
+  font-weight: 900;
+  color: #000000;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* BLOC BANDĂ INFO - compania activă */
+.company-ticker {
+  height: 38px;
+  border-radius: 7px;
+  border: 1px solid #b98b18;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.96), rgba(22, 22, 22, 0.96), rgba(0, 0, 0, 0.96));
+  box-shadow:
+    inset 0 0 18px rgba(242, 201, 76, 0.11),
+    0 0 10px rgba(0, 0, 0, 0.50);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 8px;
+  padding: 0 11px;
+}
+
+.company-track {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.ticker-label {
+  color: #f2c94c;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.ticker-name {
   color: #ffffff;
-  font-size: 14px;
-  line-height: 1.25;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.dashboard-card small {
-  display: block;
-  margin-top: 7px;
-  color: #a9a9a9;
-  font-size: 11px;
-  line-height: 1.3;
+/* BLOC MENIU - carduri compacte negre */
+.dashboard-menu {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 5px;
+}
+
+.quick-card {
+  min-height: 50px;
+  border-radius: 7px;
+  border: 1px solid #b98b18;
+  background: linear-gradient(145deg, #1a1a1a 0%, #070707 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 5px 12px rgba(0, 0, 0, 0.60);
+  padding: 6px 8px;
+  display: grid;
+  grid-template-columns: 22px 1fr 13px;
+  align-items: center;
+  gap: 7px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.quick-icon {
+  width: 19px;
+  height: 19px;
+  color: #f2c94c;
+  filter: drop-shadow(0 0 5px rgba(242, 201, 76, 0.42));
+  font-size: 17px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quick-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.quick-main {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 900;
+  color: #f2c94c;
+  letter-spacing: 0.4px;
+}
+
+.quick-sub {
+  font-size: 7.5px;
+  line-height: 1.15;
+  color: #ffffff;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.quick-tip {
+  color: #f2c94c;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 500;
+  text-align: right;
 }
 
 .hidden {
   display: none;
 }
 
-@media (max-width: 390px) {
+/* BLOC DESKTOP - păstrează aplicația ca telefon centrat */
+@media (min-width: 701px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    padding: 0;
+    overflow: hidden;
+  }
+
   .app-shell {
-    padding: 16px;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    padding: 0;
   }
 
   .login-card {
-    padding: 24px;
+    position: relative;
+    width: 430px;
+    max-width: 430px;
+    height: 920px;
+    min-height: 920px;
+    max-height: 920px;
+    overflow: hidden;
+    margin: 0 auto;
+    border-radius: 48px;
+    padding: 92px 18px 28px;
+    border: 3px solid rgba(242, 201, 76, 0.92);
+    box-shadow:
+      0 0 0 3px rgba(255, 255, 255, 0.05),
+      0 0 0 12px #000000,
+      0 0 35px rgba(242, 201, 76, 0.30),
+      0 45px 90px rgba(0, 0, 0, 0.85);
+    transform: scale(var(--desktop-phone-scale, 1));
+    transform-origin: center center;
   }
 
-  .dashboard-grid {
-    grid-template-columns: 1fr;
+  .login-card::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 170px;
+    height: 35px;
+    background: #000000;
+    border-radius: 28px;
+    z-index: 5;
+  }
+
+  .login-card::after {
+    content: "";
+    position: absolute;
+    top: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58px;
+    height: 7px;
+    background: #222222;
+    border-radius: 20px;
+    z-index: 6;
+  }
+}
+
+/* BLOC TELEFOANE MICI - păstrează totul lizibil */
+@media (max-width: 390px) {
+  .app-shell {
+    padding: 8px 6px 10px;
+  }
+
+  .login-card {
+    padding: 14px 10px 12px;
+  }
+
+  .brand-block h1 {
+    font-size: 28px;
+  }
+
+  .summary-grid {
+    gap: 3px;
+  }
+
+  .quick-main {
+    font-size: 11px;
   }
 }
