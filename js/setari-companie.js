@@ -177,11 +177,61 @@ async function loadCompanySettingsForDisplay(profileType, companyId) {
   }
 }
 
+
+/* BLOC SALVARE SETĂRI COMPANIE - scrie modificările în Supabase */
+async function saveCompanySettings(companyId) {
+  const { slotChoiceButtons, moduleCheckboxes, onlineBookingsToggle, confirmationRequiredToggle } = getSetariCompanieElements();
+
+  const activeSlot = [...slotChoiceButtons].find(button => button.classList.contains('active'));
+
+  const { error: settingsError } = await rezivoSupabase
+    .from('setari_companie')
+    .update({
+      interval_programari_minute: Number(activeSlot?.dataset.slotMinutes || 30),
+      permite_programari_online: onlineBookingsToggle.checked,
+      necesita_confirmare: confirmationRequiredToggle.checked
+    })
+    .eq('companie_id', companyId);
+
+  if (settingsError) throw settingsError;
+
+  for (const checkbox of moduleCheckboxes) {
+    await rezivoSupabase
+      .from('module_companie')
+      .update({ activ: checkbox.checked })
+      .eq('companie_id', companyId)
+      .eq('cod_modul', checkbox.dataset.moduleCode);
+  }
+
+  showMessage('Setările au fost salvate.');
+}
+
+function attachSaveCompanySettingsEvent(companyId) {
+  const saveButton = document.getElementById('saveCompanySettingsButton');
+  const { slotChoiceButtons } = getSetariCompanieElements();
+
+  slotChoiceButtons.forEach(button => {
+    button.onclick = () => setActiveSlotChoice(button.dataset.slotMinutes);
+  });
+
+  if (saveButton) {
+    saveButton.onclick = async () => {
+      try {
+        await saveCompanySettings(companyId);
+      } catch (error) {
+        showMessage(error.message || 'Nu s-au putut salva setările.', 'error');
+      }
+    };
+  }
+}
+
+
 /* BLOC PORNIRE MODUL - apelat din auth.js când se deschide Setări companie */
 window.loadSetariCompaniePage = async function loadSetariCompaniePage(options) {
   await ensureSetariCompanieHtmlLoaded();
 
   attachSetariCompanieEvents(options.onClose);
+  attachSaveCompanySettingsEvent(options.companyId);
 
   await loadCompanySettingsForDisplay(options.profileType, options.companyId);
 };
