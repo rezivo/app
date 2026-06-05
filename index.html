@@ -95,7 +95,7 @@
 
           <!-- BLOC MENIU - carduri compacte pentru modulele aplicației -->
           <div class="dashboard-menu">
-            <article class="quick-card">
+            <article class="quick-card" id="settingsMenuButton">
               <div class="quick-icon">⚙</div>
               <div class="quick-text">
                 <div class="quick-main">SETĂRI COMPANIE</div>
@@ -131,6 +131,53 @@
               <div class="quick-tip">›</div>
             </article>
           </div>
+        </section>
+
+
+
+        <!-- BLOC SETĂRI COMPANIE - pagină vizuală pentru configurări -->
+        <section id="settingsPanel" class="settings-panel hidden">
+          <div class="settings-top-row">
+            <button type="button" id="settingsBackButton" class="settings-back-button">‹</button>
+            <div>
+              <h3>SETĂRI COMPANIE</h3>
+              <span>Configurare vizuală inițială</span>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Durata slotului în orar</div>
+            <div class="slot-choice-grid">
+              <button type="button" class="slot-choice">15 min</button>
+              <button type="button" class="slot-choice active">30 min</button>
+              <button type="button" class="slot-choice">60 min</button>
+            </div>
+            <p class="settings-help">Slotul controlează cum apar orele în orar. Durata serviciului poate ocupa unul sau mai multe sloturi.</p>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Module vizibile în aplicație</div>
+            <div class="module-list">
+              <label class="module-row"><span>Programări</span><input type="checkbox" checked><i></i></label>
+              <label class="module-row"><span>Clienți</span><input type="checkbox" checked><i></i></label>
+              <label class="module-row"><span>Servicii</span><input type="checkbox" checked><i></i></label>
+              <label class="module-row"><span>Resurse</span><input type="checkbox" checked><i></i></label>
+              <label class="module-row"><span>Program lucru</span><input type="checkbox" checked><i></i></label>
+              <label class="module-row"><span>Campanii & Evenimente</span><input type="checkbox"><i></i></label>
+              <label class="module-row"><span>Aplicație client</span><input type="checkbox"><i></i></label>
+              <label class="module-row"><span>Rapoarte</span><input type="checkbox" checked><i></i></label>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Reguli generale</div>
+            <div class="module-list">
+              <label class="module-row"><span>Permite programări online</span><input type="checkbox" checked><i></i></label>
+              <label class="module-row"><span>Necesită confirmare</span><input type="checkbox" checked><i></i></label>
+            </div>
+          </div>
+
+          <button type="button" class="settings-save-button">Salvare va fi activată în pasul următor</button>
         </section>
 
         <button type="button" id="logoutButton" class="secondary-button">Ieșire</button>
