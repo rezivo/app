@@ -214,3 +214,28 @@ accountModalClose.addEventListener('click', closeAccountModal);
 accountModalBackdrop.addEventListener('click', closeAccountModal);
 settingsMenuButton.addEventListener('click', openSettingsPanel);
 settingsBackButton.addEventListener('click', closeSettingsPanel);
+
+
+/* BLOC SESIUNE ACTIVĂ - păstrează utilizatorul logat la refresh */
+async function verificaSesiuneActiva() {
+  const { data } = await rezivoSupabase.auth.getUser();
+
+  if (!data.user) {
+    return;
+  }
+
+  const adminRezivoProfile = await getAdminRezivoProfile(data.user.id);
+
+  if (adminRezivoProfile) {
+    showLoggedUser('admin_rezivo', adminRezivoProfile);
+    return;
+  }
+
+  const companyUserProfile = await getCompanyUserProfile(data.user.id);
+
+  if (companyUserProfile) {
+    showLoggedUser('company_user', companyUserProfile);
+  }
+}
+
+verificaSesiuneActiva();
