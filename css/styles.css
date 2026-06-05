@@ -37,6 +37,12 @@ body {
   margin-bottom: 28px;
 }
 
+.brand-logo-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .brand-mark {
   width: 64px;
   height: 64px;
@@ -49,6 +55,7 @@ body {
   background: linear-gradient(135deg, #f7e7a0, #c79b27);
   font-size: 32px;
   font-weight: 800;
+  box-shadow: 0 0 28px rgba(212, 175, 55, 0.24);
 }
 
 .brand-block h1 {
@@ -138,6 +145,13 @@ body {
   border-top: 1px solid rgba(212, 175, 55, 0.25);
 }
 
+.user-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .user-panel h2 {
   margin: 0 0 10px;
   color: #d4af37;
@@ -151,6 +165,105 @@ body {
   line-height: 1.4;
 }
 
+.access-badge {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  color: #f2d978;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+}
+
+.user-details {
+  margin-bottom: 12px;
+}
+
+/* BLOC DASHBOARD - carduri compacte premium */
+.dashboard-panel {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.10), rgba(255, 255, 255, 0.025));
+  border: 1px solid rgba(212, 175, 55, 0.26);
+}
+
+.dashboard-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.dashboard-title-row h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.dashboard-title-row span {
+  color: #d4af37;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.dashboard-card {
+  min-height: 92px;
+  padding: 13px;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.48);
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.card-kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: #d4af37;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-card strong {
+  display: block;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.dashboard-card small {
+  display: block;
+  margin-top: 7px;
+  color: #a9a9a9;
+  font-size: 11px;
+  line-height: 1.3;
+}
+
 .hidden {
   display: none;
+}
+
+@media (max-width: 390px) {
+  .app-shell {
+    padding: 16px;
+  }
+
+  .login-card {
+    padding: 24px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
 }
