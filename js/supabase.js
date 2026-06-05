@@ -8,9 +8,9 @@ const rezivoSupabase = window.supabase.createClient(
   REZIVO_SUPABASE_PUBLISHABLE_KEY,
   {
     auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-      detectSessionInUrl: false
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
     }
   }
 );
