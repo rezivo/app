@@ -15,6 +15,9 @@
   <!-- BLOC FUNDAL - aspect premium general -->
   <main class="app-shell">
     <section class="login-card">
+      <!-- BLOC BUTON CONT - apare după login și deschide informațiile contului -->
+      <button type="button" id="accountInfoButton" class="account-info-button hidden" aria-label="Informații cont">i</button>
+
       <!-- BLOC BRAND - loc pregătit pentru logo-ul final Rezivo -->
       <div class="brand-block">
         <div class="brand-logo-area">
@@ -40,20 +43,6 @@
 
       <!-- BLOC UTILIZATOR - apare după login reușit -->
       <section id="userPanel" class="user-panel hidden">
-        <!-- BLOC HEADER UTILIZATOR - afișează contul conectat -->
-        <div class="user-header">
-          <div>
-            <h2 id="welcomeTitle">Conectat</h2>
-            <p id="accountType"></p>
-          </div>
-          <span id="accessBadge" class="access-badge">ACCES</span>
-        </div>
-
-        <div class="user-details">
-          <p id="companyInfo"></p>
-          <p id="permissionInfo"></p>
-        </div>
-
         <!-- BLOC DASHBOARD - primul ecran vizibil după login -->
         <section id="dashboardPanel" class="dashboard-panel hidden">
           <div class="dashboard-title-row">
@@ -85,7 +74,7 @@
 
             <article class="summary-card">
               <div class="summary-top">
-                <div class="summary-icon">⏱</div>
+                <div class="summary-icon">◷</div>
                 <div class="summary-info">
                   <div class="summary-number">Slot</div>
                   <div class="summary-name">Config<br>orar</div>
@@ -102,14 +91,6 @@
                 </div>
               </div>
             </article>
-          </div>
-
-          <!-- BLOC BANDĂ INFO - numele companiei citit din Supabase -->
-          <div class="company-ticker">
-            <div class="company-track">
-              <span class="ticker-label">Companie:</span>
-              <span id="dashboardCompanyName" class="ticker-name">-</span>
-            </div>
           </div>
 
           <!-- BLOC MENIU - carduri compacte pentru modulele aplicației -->
@@ -154,10 +135,63 @@
 
         <button type="button" id="logoutButton" class="secondary-button">Ieșire</button>
       </section>
+
+      <!-- BLOC POPUP CONT - informații utile fără să ocupe spațiu pe pagină -->
+      <div id="accountModal" class="account-modal hidden" aria-hidden="true">
+        <div class="account-modal-backdrop" id="accountModalBackdrop"></div>
+        <section class="account-modal-card" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+          <div class="modal-title-row">
+            <h2 id="accountModalTitle">INFORMAȚII CONT</h2>
+            <button type="button" id="accountModalClose" class="modal-close-button" aria-label="Închide">×</button>
+          </div>
+
+          <div class="modal-info-list">
+            <div class="modal-info-row">
+              <div class="modal-info-icon">👤</div>
+              <div>
+                <span>Bine ai venit</span>
+                <strong id="modalName">-</strong>
+              </div>
+            </div>
+
+            <div class="modal-info-row">
+              <div class="modal-info-icon">◎</div>
+              <div>
+                <span>Tip cont</span>
+                <strong id="modalAccountType">-</strong>
+              </div>
+            </div>
+
+            <div class="modal-info-row">
+              <div class="modal-info-icon">◆</div>
+              <div>
+                <span>Companie</span>
+                <strong id="modalCompany">-</strong>
+              </div>
+            </div>
+
+            <div class="modal-info-row">
+              <div class="modal-info-icon">●</div>
+              <div>
+                <span>Post</span>
+                <strong id="modalPost">-</strong>
+              </div>
+            </div>
+
+            <div class="modal-info-row modal-info-row-inline">
+              <div class="modal-info-icon">盾</div>
+              <div>
+                <span>FULL_ACCESS</span>
+              </div>
+              <strong id="modalFullAccess" class="modal-pill">-</strong>
+            </div>
+          </div>
+
+          <button type="button" id="modalLogoutButton" class="modal-logout-button">Ieșire</button>
+        </section>
+      </div>
     </section>
   </main>
-
-
 
   <!-- BLOC AUTOSCALING - potrivește cadrul de telefon pe desktop -->
   <script>
