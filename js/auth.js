@@ -16,6 +16,9 @@ const modalAccountType = document.getElementById('modalAccountType');
 const modalCompany = document.getElementById('modalCompany');
 const modalPost = document.getElementById('modalPost');
 const modalFullAccess = document.getElementById('modalFullAccess');
+const settingsMenuButton = document.getElementById('settingsMenuButton');
+const settingsPanel = document.getElementById('settingsPanel');
+const settingsBackButton = document.getElementById('settingsBackButton');
 
 /* BLOC MESAJ - afișează mesaje fără popup de browser */
 function showMessage(text, type = 'info') {
@@ -45,10 +48,22 @@ function closeAccountModal() {
   accountModal.setAttribute('aria-hidden', 'true');
 }
 
+/* BLOC SETĂRI COMPANIE - deschide și închide pagina vizuală de setări */
+function openSettingsPanel() {
+  dashboardPanel.classList.add('hidden');
+  settingsPanel.classList.remove('hidden');
+}
+
+function closeSettingsPanel() {
+  settingsPanel.classList.add('hidden');
+  dashboardPanel.classList.remove('hidden');
+}
+
 /* BLOC CURĂȚARE ECRAN - ascunde informațiile după logout */
 function resetUserPanel() {
   userPanel.classList.add('hidden');
   dashboardPanel.classList.add('hidden');
+  settingsPanel.classList.add('hidden');
   accountInfoButton.classList.add('hidden');
   closeAccountModal();
 
@@ -197,3 +212,5 @@ modalLogoutButton.addEventListener('click', closeAccountModal);
 accountInfoButton.addEventListener('click', openAccountModal);
 accountModalClose.addEventListener('click', closeAccountModal);
 accountModalBackdrop.addEventListener('click', closeAccountModal);
+settingsMenuButton.addEventListener('click', openSettingsPanel);
+settingsBackButton.addEventListener('click', closeSettingsPanel);
