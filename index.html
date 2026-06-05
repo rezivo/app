@@ -33,13 +33,32 @@
         <input id="email" type="email" autocomplete="email" required />
 
         <label for="password">Parolă</label>
-        <input id="password" type="password" autocomplete="current-password" required />
+        <div class="password-field-wrap">
+          <input id="password" type="password" autocomplete="current-password" required />
+          <button type="button" id="togglePasswordButton" class="password-eye-button" aria-label="Arată parola">👁</button>
+        </div>
 
         <button type="submit" id="loginButton">Intră în Rezivo</button>
+        <button type="button" id="forgotPasswordButton" class="forgot-password-button">Am uitat parola</button>
       </form>
 
       <!-- BLOC STATUS - mesaje clare pentru utilizator -->
       <div id="messageBox" class="message-box hidden"></div>
+
+      <!-- BLOC RESETARE PAROLĂ - apare doar după accesarea linkului primit pe email -->
+      <section id="resetPasswordPanel" class="reset-password-panel hidden">
+        <h3>PAROLĂ NOUĂ</h3>
+        <p>Scrie parola nouă de două ori.</p>
+        <form id="resetPasswordForm" class="login-form">
+          <label for="newPassword">Parolă nouă</label>
+          <input id="newPassword" type="password" autocomplete="new-password" required />
+
+          <label for="confirmNewPassword">Confirmă parola</label>
+          <input id="confirmNewPassword" type="password" autocomplete="new-password" required />
+
+          <button type="submit" id="saveNewPasswordButton">Salvează parola nouă</button>
+        </form>
+      </section>
 
       <!-- BLOC UTILIZATOR - apare după login reușit -->
       <section id="userPanel" class="user-panel hidden">
