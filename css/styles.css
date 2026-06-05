@@ -867,3 +867,66 @@ body {
   text-decoration: underline;
   box-shadow: none !important;
 }
+
+
+/* BLOC SETĂRI COMPANIE COMPACT - module pe 2 coloane */
+.settings-panel {
+  margin-top: -4px;
+}
+
+.settings-section {
+  margin-bottom: 8px;
+  padding: 9px;
+}
+
+.settings-section-title {
+  margin-bottom: 7px;
+  font-size: 11px;
+}
+
+.module-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.module-row {
+  min-height: 30px;
+  border-radius: 8px;
+  padding: 6px 6px;
+  display: grid;
+  grid-template-columns: 1fr 28px;
+  align-items: center;
+  gap: 5px;
+}
+
+.module-row span {
+  font-size: 9px;
+  line-height: 1.05;
+}
+
+.module-row i {
+  width: 27px;
+  height: 15px;
+}
+
+.module-row i::after {
+  top: 2px;
+  left: 2px;
+  width: 9px;
+  height: 9px;
+}
+
+.module-row input:checked + i::after {
+  transform: translateX(12px);
+}
+
+.settings-help {
+  margin-top: 6px;
+  font-size: 7.8px;
+}
+
+.settings-save-button {
+  min-height: 36px;
+  font-size: 10px;
+}
