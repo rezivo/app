@@ -107,6 +107,7 @@ async function openSettingsPanel() {
   dashboardPanel.classList.add('hidden');
   programareNouaPanel.classList.add('hidden');
   settingsPanel.classList.remove('hidden');
+  logoutButton.classList.add('hidden');
 
   if (typeof window.loadSetariCompaniePage !== 'function') {
     showMessage('Modulul Setări companie nu este încărcat.', 'error');
@@ -124,6 +125,7 @@ async function openSettingsPanel() {
 async function closeSettingsPanel() {
   settingsPanel.classList.add('hidden');
   dashboardPanel.classList.remove('hidden');
+  logoutButton.classList.remove('hidden');
 
   if (currentProfileType === 'company_user' && currentCompanyId) {
     await loadDashboardModules(currentProfileType, currentCompanyId);
@@ -139,6 +141,7 @@ async function openProgramareNouaPanel() {
   dashboardPanel.classList.add('hidden');
   settingsPanel.classList.add('hidden');
   programareNouaPanel.classList.remove('hidden');
+  logoutButton.classList.add('hidden');
 
   if (typeof window.loadProgramareNouaPage !== 'function') {
     showMessage('Modulul Programare nouă nu este încărcat.', 'error');
@@ -156,6 +159,7 @@ async function openProgramareNouaPanel() {
 function closeProgramareNouaPanel() {
   programareNouaPanel.classList.add('hidden');
   dashboardPanel.classList.remove('hidden');
+  logoutButton.classList.remove('hidden');
   hideMessage();
 }
 
@@ -191,6 +195,7 @@ function resetUserPanel() {
   userPanel.classList.add('hidden');
   dashboardPanel.classList.add('hidden');
   settingsPanel.classList.add('hidden');
+  logoutButton.classList.add('hidden');
   accountInfoButton.classList.add('hidden');
   hideResetPasswordPanel();
   closeAccountModal();
@@ -329,6 +334,7 @@ async function showDashboard(profileType, profile) {
   dashboardPanel.classList.remove('hidden');
   settingsPanel.classList.add('hidden');
   programareNouaPanel.classList.add('hidden');
+  logoutButton.classList.remove('hidden');
   accountInfoButton.classList.remove('hidden');
 
   if (profileType === 'admin_rezivo') {
