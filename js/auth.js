@@ -14,6 +14,8 @@ const messageBox = document.getElementById('messageBox');
 const userPanel = document.getElementById('userPanel');
 const dashboardPanel = document.getElementById('dashboardPanel');
 const dashboardSubtitle = document.getElementById('dashboardSubtitle');
+const brandTitle = document.getElementById('brandTitle');
+const brandSubtitle = document.getElementById('brandSubtitle');
 const accountInfoButton = document.getElementById('accountInfoButton');
 const accountModal = document.getElementById('accountModal');
 const accountModalBackdrop = document.getElementById('accountModalBackdrop');
@@ -127,10 +129,32 @@ async function closeSettingsPanel() {
 
 window.closeSettingsPanel = closeSettingsPanel;
 
+
+/* BLOC BRAND COMPANIE - afișează numele firmei după login */
+function resetBrandRezivo() {
+  if (brandTitle) brandTitle.textContent = 'REZIVO';
+  if (brandSubtitle) brandSubtitle.textContent = 'Platformă SaaS pentru programări și administrare servicii';
+}
+
+function applyCompanyBrand(profileType, profile) {
+  if (!brandTitle || !brandSubtitle) return;
+
+  if (profileType === 'admin_rezivo') {
+    brandTitle.textContent = 'REZIVO';
+    brandSubtitle.textContent = 'Administrare platformă';
+    return;
+  }
+
+  const companyName = profile.companii?.nume || 'COMPANIE';
+  brandTitle.textContent = companyName.toUpperCase();
+  brandSubtitle.textContent = 'Powered by Rezivo';
+}
+
 /* BLOC CURĂȚARE ECRAN */
 function resetUserPanel() {
   currentProfileType = null;
   currentCompanyId = null;
+  resetBrandRezivo();
   setDashboardModulesVisibility(new Set());
   userPanel.classList.add('hidden');
   dashboardPanel.classList.add('hidden');
@@ -306,6 +330,7 @@ function fillAccountModal(profileType, profile) {
 async function showLoggedUser(profileType, profile) {
   currentProfileType = profileType;
   currentCompanyId = profileType === 'company_user' ? profile.companie_id : null;
+  applyCompanyBrand(profileType, profile);
 
   loginForm.classList.add('hidden');
   userPanel.classList.remove('hidden');
