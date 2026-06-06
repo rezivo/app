@@ -1107,3 +1107,31 @@ body {
     letter-spacing: 2.4px;
   }
 }
+
+
+/* BLOC 6.3 - scroll interior aplicație desktop */
+@media (min-width: 701px) {
+  .login-card {
+    overflow: hidden;
+  }
+
+  .user-panel {
+    max-height: calc(920px - 210px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    scrollbar-width: none;
+  }
+
+  .user-panel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dashboard-panel {
+    padding-bottom: 16px;
+  }
+
+  .secondary-button {
+    margin-bottom: 18px;
+  }
+}
