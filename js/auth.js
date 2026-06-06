@@ -26,6 +26,7 @@ const modalPost = document.getElementById('modalPost');
 const modalFullAccess = document.getElementById('modalFullAccess');
 const settingsMenuButton = document.getElementById('settingsMenuButton');
 const settingsPanel = document.getElementById('settingsPanel');
+const dashboardModuleCards = document.querySelectorAll('[data-dashboard-module]');
 
 /* BLOC STARE UTILIZATOR - păstrează compania curentă pentru setări */
 let currentProfileType = null;
@@ -125,6 +126,7 @@ window.closeSettingsPanel = closeSettingsPanel;
 function resetUserPanel() {
   currentProfileType = null;
   currentCompanyId = null;
+  setDashboardModulesVisibility(new Set());
   userPanel.classList.add('hidden');
   dashboardPanel.classList.add('hidden');
   settingsPanel.classList.add('hidden');
@@ -174,18 +176,107 @@ async function getCompanyUserProfile(authUserId) {
   return data;
 }
 
-/* BLOC DASHBOARD */
-function showDashboard(profileType, profile) {
+/* BLOC DASHBOARD - afișează meniurile după modulele active */
+function normalizeDashboardModuleCode(value) {
+  return String(value || '')
+    .trim()
+    .toUpperCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/&/g, ' SI ')
+    .replace(/[^A-Z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+}
+
+function readDashboardValue(source, keys, fallback = null) {
+  if (!source) return fallback;
+
+  for (const key of keys) {
+    if (source[key] !== undefined && source[key] !== null) {
+      return source[key];
+    }
+  }
+
+  return fallback;
+}
+
+function readDashboardBoolean(value, fallback = false) {
+  if (typeof value === 'boolean') return value;
+  if (value === 1 || value === '1') return true;
+  if (value === 0 || value === '0') return false;
+
+  if (typeof value === 'string') {
+    const normalizedValue = value.trim().toLowerCase();
+    if (['true', 'da', 'yes', 'active', 'activ'].includes(normalizedValue)) return true;
+    if (['false', 'nu', 'no', 'inactive', 'inactiv'].includes(normalizedValue)) return false;
+  }
+
+  return fallback;
+}
+
+function setDashboardModulesVisibility(activeCodes) {
+  dashboardModuleCards.forEach((card) => {
+    const cardCode = normalizeDashboardModuleCode(card.dataset.dashboardModule);
+    card.classList.toggle('hidden', !activeCodes.has(cardCode));
+  });
+}
+
+function showAllDashboardModules() {
+  dashboardModuleCards.forEach((card) => {
+    card.classList.remove('hidden');
+  });
+}
+
+async function loadDashboardModules(profileType, companyId) {
+  if (profileType === 'admin_rezivo') {
+    showAllDashboardModules();
+    return;
+  }
+
+  if (profileType !== 'company_user' || !companyId) {
+    setDashboardModulesVisibility(new Set());
+    return;
+  }
+
+  const { data, error } = await rezivoSupabase
+    .from('module_companie')
+    .select('*')
+    .eq('companie_id', companyId);
+
+  if (error) throw error;
+
+  const activeCodes = new Set();
+
+  (data || []).forEach((moduleItem) => {
+    const code = normalizeDashboardModuleCode(
+      readDashboardValue(moduleItem, ['cod_modul', 'modul_cod', 'cod', 'cheie', 'nume_modul', 'nume'])
+    );
+    const isActive = readDashboardBoolean(
+      readDashboardValue(moduleItem, ['activ', 'active', 'enabled', 'este_activ'], false),
+      false
+    );
+
+    if (code && isActive) {
+      activeCodes.add(code);
+    }
+  });
+
+  setDashboardModulesVisibility(activeCodes);
+}
+
+async function showDashboard(profileType, profile) {
   dashboardPanel.classList.remove('hidden');
   settingsPanel.classList.add('hidden');
   accountInfoButton.classList.remove('hidden');
 
   if (profileType === 'admin_rezivo') {
     dashboardSubtitle.textContent = profile.super_admin ? 'Super Admin' : 'Admin Rezivo';
+    await loadDashboardModules(profileType, null);
     return;
   }
 
   dashboardSubtitle.textContent = profile.posturi_companie?.nume || 'Post necunoscut';
+  await loadDashboardModules(profileType, profile.companie_id);
 }
 
 /* BLOC POPUP DATE CONT */
@@ -207,15 +298,21 @@ function fillAccountModal(profileType, profile) {
 }
 
 /* BLOC AFIȘARE PROFIL */
-function showLoggedUser(profileType, profile) {
+async function showLoggedUser(profileType, profile) {
   currentProfileType = profileType;
   currentCompanyId = profileType === 'company_user' ? profile.companie_id : null;
 
   loginForm.classList.add('hidden');
   userPanel.classList.remove('hidden');
-  showDashboard(profileType, profile);
+
+  try {
+    await showDashboard(profileType, profile);
+    hideMessage();
+  } catch (error) {
+    showMessage(error.message || 'Nu s-au putut citi modulele active.', 'error');
+  }
+
   fillAccountModal(profileType, profile);
-  hideMessage();
 }
 
 /* BLOC VERIFICARE USER LOGAT */
@@ -223,14 +320,14 @@ async function loadLoggedUser(authUserId) {
   const adminRezivoProfile = await getAdminRezivoProfile(authUserId);
 
   if (adminRezivoProfile) {
-    showLoggedUser('admin_rezivo', adminRezivoProfile);
+    await showLoggedUser('admin_rezivo', adminRezivoProfile);
     return;
   }
 
   const companyUserProfile = await getCompanyUserProfile(authUserId);
 
   if (companyUserProfile) {
-    showLoggedUser('company_user', companyUserProfile);
+    await showLoggedUser('company_user', companyUserProfile);
     return;
   }
 
