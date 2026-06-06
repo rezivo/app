@@ -1,4 +1,4 @@
-<!-- BLOC PROGRAMARE NOUĂ - client -->
+<!-- BLOC PROGRAMARE NOUĂ - client existent -->
 <div class="module-page-top-row">
   <button type="button" id="programareNouaBackButton" class="module-page-back-button" aria-label="Înapoi">‹</button>
   <div>
@@ -7,30 +7,16 @@
   </div>
 </div>
 
-<!-- BLOC CLIENT - alegere între client existent și client nou -->
+<!-- BLOC CLIENT EXISTENT - programarea se face doar pentru un client deja salvat -->
 <div class="programare-client-grid">
   <section class="programare-client-card">
     <div class="programare-client-title">CLIENT EXISTENT</div>
-    <div class="programare-client-text">Caută un client deja salvat.</div>
+    <div class="programare-client-text">Caută și selectează clientul pentru programare.</div>
 
     <label class="programare-field-label" for="programareClientSearch">Caută după nume sau telefon</label>
     <input id="programareClientSearch" class="programare-input" type="text" placeholder="Ex: Popescu Maria" autocomplete="off" />
 
     <div class="programare-empty-box">Lista de rezultate va apărea aici.</div>
-  </section>
-
-  <section class="programare-client-card">
-    <div class="programare-client-title">CLIENT NOU</div>
-    <div class="programare-client-text">Completează datele clientului nou.</div>
-
-    <label class="programare-field-label" for="programareClientNume">Nume client</label>
-    <input id="programareClientNume" class="programare-input" type="text" placeholder="Nume și prenume" autocomplete="off" />
-
-    <label class="programare-field-label" for="programareClientTelefon">Telefon</label>
-    <input id="programareClientTelefon" class="programare-input" type="tel" placeholder="Telefon client" autocomplete="off" />
-
-    <label class="programare-field-label" for="programareClientEmail">Email opțional</label>
-    <input id="programareClientEmail" class="programare-input" type="email" placeholder="email@exemplu.ro" autocomplete="off" />
   </section>
 </div>
 
