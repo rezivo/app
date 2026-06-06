@@ -62,136 +62,130 @@
         <!-- BLOC DASHBOARD - primul ecran vizibil după login -->
         <section id="dashboardPanel" class="dashboard-panel hidden">
           <div class="dashboard-title-row">
-            <h3>REZUMAT CONT</h3>
+            <h3>HOME</h3>
             <span id="dashboardSubtitle">Test aplicație</span>
           </div>
 
-          <!-- BLOC REZUMAT - carduri mici aurii ca stil Manea -->
-          <div class="summary-grid">
-            <article class="summary-card">
-              <div class="summary-top">
-                <div class="summary-icon">R</div>
-                <div class="summary-info">
-                  <div class="summary-number">1</div>
-                  <div class="summary-name">Companie<br>activă</div>
-                </div>
-              </div>
+          <!-- BLOC BURTIERE - informații rapide pentru lucru zilnic -->
+          <div class="home-alerts">
+            <article class="home-alert-card home-alert-card-main">
+              <div class="home-alert-label">URMĂTOAREA PROGRAMARE</div>
+              <div class="home-alert-title">Nu există programări încă</div>
+              <div class="home-alert-subtitle">Aici va apărea următorul client.</div>
             </article>
 
-            <article class="summary-card">
-              <div class="summary-top">
-                <div class="summary-icon">✓</div>
-                <div class="summary-info">
-                  <div class="summary-number">OK</div>
-                  <div class="summary-name">Login<br>valid</div>
-                </div>
-              </div>
-            </article>
-
-            <article class="summary-card">
-              <div class="summary-top">
-                <div class="summary-icon">◷</div>
-                <div class="summary-info">
-                  <div class="summary-number">Slot</div>
-                  <div class="summary-name">Config<br>orar</div>
-                </div>
-              </div>
-            </article>
-
-            <article class="summary-card">
-              <div class="summary-top">
-                <div class="summary-icon">⚙</div>
-                <div class="summary-info">
-                  <div class="summary-number">Set</div>
-                  <div class="summary-name">Module<br>active</div>
-                </div>
-              </div>
+            <article class="home-alert-card">
+              <div class="home-alert-label">TASK / NOTIFICARE</div>
+              <div class="home-alert-title">Nicio notificare importantă</div>
+              <div class="home-alert-subtitle">Aici vor apărea atenționările utile.</div>
             </article>
           </div>
 
-          <!-- BLOC MENIU - carduri compacte pentru modulele aplicației -->
-          <div class="dashboard-menu">
-            <article class="quick-card" id="settingsMenuButton">
-              <div class="quick-icon">⚙</div>
-              <div class="quick-text">
-                <div class="quick-main">SETĂRI COMPANIE</div>
-                <div class="quick-sub">slot orar, module active, configurări</div>
-              </div>
-              <div class="quick-tip">›</div>
+          <!-- BLOC ACȚIUNI PRINCIPALE - meniuri folosite zilnic -->
+          <div class="home-main-actions">
+            <article class="home-action-card hidden" data-dashboard-module="PROGRAMARI">
+              <div class="home-action-icon">+</div>
+              <div class="home-action-title">PROGRAMARE NOUĂ</div>
+              <div class="home-action-subtitle">adaugă rapid o programare</div>
             </article>
 
-            <article class="quick-card hidden" data-dashboard-module="PROGRAMARI">
-              <div class="quick-icon">◷</div>
-              <div class="quick-text">
-                <div class="quick-main">PROGRAMĂRI</div>
-                <div class="quick-sub">calendar, cereri și confirmări</div>
-              </div>
-              <div class="quick-tip">›</div>
+            <article class="home-action-card hidden" data-dashboard-module="PROGRAMARI">
+              <div class="home-action-icon">▦</div>
+              <div class="home-action-title">PROGRAMĂRI MULTIPLE</div>
+              <div class="home-action-subtitle">creează mai multe programări</div>
             </article>
 
-            <article class="quick-card hidden" data-dashboard-module="CLIENTI">
-              <div class="quick-icon">👤</div>
-              <div class="quick-text">
-                <div class="quick-main">CLIENȚI</div>
-                <div class="quick-sub">date clienți și istoric</div>
-              </div>
-              <div class="quick-tip">›</div>
+            <article class="home-action-card hidden" data-dashboard-module="PROGRAMARI">
+              <div class="home-action-icon">◷</div>
+              <div class="home-action-title">PROGRAMĂRI</div>
+              <div class="home-action-subtitle">lista programărilor</div>
             </article>
 
-            <article class="quick-card hidden" data-dashboard-module="SERVICII">
-              <div class="quick-icon">☰</div>
-              <div class="quick-text">
-                <div class="quick-main">SERVICII</div>
-                <div class="quick-sub">denumire și durată, fără prețuri afișate</div>
-              </div>
-              <div class="quick-tip">›</div>
-            </article>
-
-            <article class="quick-card hidden" data-dashboard-module="RESURSE">
-              <div class="quick-icon">◉</div>
-              <div class="quick-text">
-                <div class="quick-main">RESURSE</div>
-                <div class="quick-sub">persoane, cabinete, săli sau puncte de lucru</div>
-              </div>
-              <div class="quick-tip">›</div>
-            </article>
-
-            <article class="quick-card hidden" data-dashboard-module="PROGRAM_LUCRU">
-              <div class="quick-icon">⌚</div>
-              <div class="quick-text">
-                <div class="quick-main">PROGRAM LUCRU</div>
-                <div class="quick-sub">zile, ore și disponibilitate pe resurse</div>
-              </div>
-              <div class="quick-tip">›</div>
-            </article>
-
-            <article class="quick-card hidden" data-dashboard-module="CAMPANII_EVENIMENTE">
-              <div class="quick-icon">✉</div>
-              <div class="quick-text">
-                <div class="quick-main">CAMPANII & EVENIMENTE</div>
-                <div class="quick-sub">invitații, înscrieri și notificări</div>
-              </div>
-              <div class="quick-tip">›</div>
-            </article>
-
-            <article class="quick-card hidden" data-dashboard-module="APLICATIE_CLIENT">
-              <div class="quick-icon">▣</div>
-              <div class="quick-text">
-                <div class="quick-main">APLICAȚIE CLIENT</div>
-                <div class="quick-sub">portal client și solicitări online</div>
-              </div>
-              <div class="quick-tip">›</div>
-            </article>
-
-            <article class="quick-card hidden" data-dashboard-module="RAPOARTE">
-              <div class="quick-icon">▤</div>
-              <div class="quick-text">
-                <div class="quick-main">RAPOARTE</div>
-                <div class="quick-sub">statistici și analiză activitate</div>
-              </div>
-              <div class="quick-tip">›</div>
+            <article class="home-action-card hidden" data-dashboard-module="PROGRAM_LUCRU">
+              <div class="home-action-icon">⌚</div>
+              <div class="home-action-title">ORAR</div>
+              <div class="home-action-subtitle">calendar și disponibilitate</div>
             </article>
           </div>
+
+          <!-- BLOC MENIU SECUNDAR - administrare și setări, ascunse de pe prima pagină -->
+          <details class="secondary-menu-box">
+            <summary>☰ Administrare / Mai multe</summary>
+
+            <div class="dashboard-menu secondary-dashboard-menu">
+              <article class="quick-card" id="settingsMenuButton">
+                <div class="quick-icon">⚙</div>
+                <div class="quick-text">
+                  <div class="quick-main">SETĂRI COMPANIE</div>
+                  <div class="quick-sub">slot orar, module active, configurări</div>
+                </div>
+                <div class="quick-tip">›</div>
+              </article>
+
+              <article class="quick-card hidden" data-dashboard-module="CLIENTI">
+                <div class="quick-icon">👤</div>
+                <div class="quick-text">
+                  <div class="quick-main">CLIENȚI</div>
+                  <div class="quick-sub">date clienți și istoric</div>
+                </div>
+                <div class="quick-tip">›</div>
+              </article>
+
+              <article class="quick-card hidden" data-dashboard-module="SERVICII">
+                <div class="quick-icon">☰</div>
+                <div class="quick-text">
+                  <div class="quick-main">SERVICII</div>
+                  <div class="quick-sub">denumire și durată, fără prețuri afișate</div>
+                </div>
+                <div class="quick-tip">›</div>
+              </article>
+
+              <article class="quick-card hidden" data-dashboard-module="RESURSE">
+                <div class="quick-icon">◉</div>
+                <div class="quick-text">
+                  <div class="quick-main">RESURSE</div>
+                  <div class="quick-sub">persoane, cabinete, săli sau puncte de lucru</div>
+                </div>
+                <div class="quick-tip">›</div>
+              </article>
+
+              <article class="quick-card hidden" data-dashboard-module="PROGRAM_LUCRU">
+                <div class="quick-icon">⌚</div>
+                <div class="quick-text">
+                  <div class="quick-main">PROGRAM LUCRU</div>
+                  <div class="quick-sub">zile, ore și disponibilitate pe resurse</div>
+                </div>
+                <div class="quick-tip">›</div>
+              </article>
+
+              <article class="quick-card hidden" data-dashboard-module="CAMPANII_EVENIMENTE">
+                <div class="quick-icon">✉</div>
+                <div class="quick-text">
+                  <div class="quick-main">CAMPANII & EVENIMENTE</div>
+                  <div class="quick-sub">invitații, înscrieri și notificări</div>
+                </div>
+                <div class="quick-tip">›</div>
+              </article>
+
+              <article class="quick-card hidden" data-dashboard-module="APLICATIE_CLIENT">
+                <div class="quick-icon">▣</div>
+                <div class="quick-text">
+                  <div class="quick-main">APLICAȚIE CLIENT</div>
+                  <div class="quick-sub">portal client și solicitări online</div>
+                </div>
+                <div class="quick-tip">›</div>
+              </article>
+
+              <article class="quick-card hidden" data-dashboard-module="RAPOARTE">
+                <div class="quick-icon">▤</div>
+                <div class="quick-text">
+                  <div class="quick-main">RAPOARTE</div>
+                  <div class="quick-sub">statistici și analiză activitate</div>
+                </div>
+                <div class="quick-tip">›</div>
+              </article>
+            </div>
+          </details>
         </section>
 
 
