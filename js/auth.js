@@ -28,6 +28,8 @@ const modalPost = document.getElementById('modalPost');
 const modalFullAccess = document.getElementById('modalFullAccess');
 const settingsMenuButton = document.getElementById('settingsMenuButton');
 const settingsPanel = document.getElementById('settingsPanel');
+const programareNouaButton = document.getElementById('programareNouaButton');
+const programareNouaPanel = document.getElementById('programareNouaPanel');
 const dashboardModuleCards = document.querySelectorAll('[data-dashboard-module]');
 
 /* BLOC STARE UTILIZATOR - păstrează compania curentă pentru setări */
@@ -75,6 +77,8 @@ function showResetPasswordPanel() {
   userPanel.classList.add('hidden');
   dashboardPanel.classList.add('hidden');
   settingsPanel.classList.add('hidden');
+  programareNouaPanel.classList.add('hidden');
+  programareNouaPanel.classList.add('hidden');
   accountInfoButton.classList.add('hidden');
   resetPasswordPanel.classList.remove('hidden');
   closeAccountModal();
@@ -101,6 +105,7 @@ function closeAccountModal() {
 /* BLOC SETĂRI COMPANIE */
 async function openSettingsPanel() {
   dashboardPanel.classList.add('hidden');
+  programareNouaPanel.classList.add('hidden');
   settingsPanel.classList.remove('hidden');
 
   if (typeof window.loadSetariCompaniePage !== 'function') {
@@ -128,6 +133,33 @@ async function closeSettingsPanel() {
 }
 
 window.closeSettingsPanel = closeSettingsPanel;
+
+/* BLOC PROGRAMARE NOUĂ */
+async function openProgramareNouaPanel() {
+  dashboardPanel.classList.add('hidden');
+  settingsPanel.classList.add('hidden');
+  programareNouaPanel.classList.remove('hidden');
+
+  if (typeof window.loadProgramareNouaPage !== 'function') {
+    showMessage('Modulul Programare nouă nu este încărcat.', 'error');
+    return;
+  }
+
+  hideMessage();
+  await window.loadProgramareNouaPage({
+    profileType: currentProfileType,
+    companyId: currentCompanyId,
+    onClose: closeProgramareNouaPanel
+  });
+}
+
+function closeProgramareNouaPanel() {
+  programareNouaPanel.classList.add('hidden');
+  dashboardPanel.classList.remove('hidden');
+  hideMessage();
+}
+
+window.closeProgramareNouaPanel = closeProgramareNouaPanel;
 
 
 /* BLOC BRAND COMPANIE - afișează numele firmei după login */
@@ -296,6 +328,7 @@ async function loadDashboardModules(profileType, companyId) {
 async function showDashboard(profileType, profile) {
   dashboardPanel.classList.remove('hidden');
   settingsPanel.classList.add('hidden');
+  programareNouaPanel.classList.add('hidden');
   accountInfoButton.classList.remove('hidden');
 
   if (profileType === 'admin_rezivo') {
@@ -504,6 +537,9 @@ accountInfoButton.addEventListener('click', openAccountModal);
 accountModalClose.addEventListener('click', closeAccountModal);
 accountModalBackdrop.addEventListener('click', closeAccountModal);
 settingsMenuButton.addEventListener('click', openSettingsPanel);
+if (programareNouaButton) {
+  programareNouaButton.addEventListener('click', openProgramareNouaPanel);
+}
 
 /* BLOC PORNIRE */
 checkExistingSession();
