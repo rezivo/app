@@ -83,7 +83,7 @@
 
           <!-- BLOC ACȚIUNI PRINCIPALE - meniuri folosite zilnic -->
           <div class="home-main-actions">
-            <article class="home-action-card hidden" data-dashboard-module="PROGRAMARI">
+            <article class="home-action-card hidden" id="programareNouaButton" data-dashboard-module="PROGRAMARI">
               <div class="home-action-icon">+</div>
               <div class="home-action-title">PROGRAMARE NOUĂ</div>
               <div class="home-action-subtitle">adaugă rapid o programare</div>
@@ -193,6 +193,9 @@
         <!-- BLOC SETĂRI COMPANIE - conținutul este încărcat separat din pages/setari-companie.html -->
         <section id="settingsPanel" class="settings-panel hidden" data-page="pages/setari-companie.html"></section>
 
+        <!-- BLOC PROGRAMARE NOUĂ - conținutul este încărcat separat din pages/programare-noua.html -->
+        <section id="programareNouaPanel" class="module-page-panel hidden" data-page="pages/programare-noua.html"></section>
+
         <button type="button" id="logoutButton" class="secondary-button">Ieșire</button>
       </section>
 
@@ -283,6 +286,9 @@
 
   <!-- BLOC SETĂRI COMPANIE - modul separat pentru setările firmei -->
   <script src="js/setari-companie.js"></script>
+
+  <!-- BLOC PROGRAMARE NOUĂ - modul separat pentru adăugare programare -->
+  <script src="js/programare-noua.js"></script>
 
   <!-- BLOC AUTENTIFICARE - login, logout, verificare identitate -->
   <script src="js/auth.js"></script>
