@@ -930,3 +930,149 @@ body {
   min-height: 36px;
   font-size: 10px;
 }
+
+
+/* BLOC HOME REZIVO - burtiere și meniuri principale */
+.home-alerts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.home-alert-card {
+  border-radius: 12px;
+  padding: 10px 11px;
+  border: 1px solid rgba(242, 201, 76, 0.42);
+  background: linear-gradient(145deg, rgba(26, 26, 26, 0.96), rgba(7, 7, 7, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 5px 12px rgba(0, 0, 0, 0.52);
+}
+
+.home-alert-card-main {
+  border-color: rgba(242, 201, 76, 0.78);
+  background: linear-gradient(145deg, rgba(58, 40, 7, 0.96), rgba(9, 9, 9, 0.98));
+}
+
+.home-alert-label {
+  color: #f2c94c;
+  font-size: 8px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.7px;
+}
+
+.home-alert-title {
+  margin-top: 6px;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1.15;
+  font-weight: 900;
+}
+
+.home-alert-subtitle {
+  margin-top: 4px;
+  color: #cfcfcf;
+  font-size: 8.5px;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.home-main-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 11px;
+}
+
+.home-action-card {
+  min-height: 88px;
+  border-radius: 13px;
+  padding: 10px 8px;
+  border: 1px solid #b98b18;
+  background: linear-gradient(145deg, #1a1a1a 0%, #070707 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 5px 12px rgba(0, 0, 0, 0.60);
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-action-icon {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 7px;
+  border-radius: 50%;
+  color: #000000;
+  background: linear-gradient(145deg, #ffe27a 0%, #d6a72d 56%, #b98208 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 900;
+  box-shadow: 0 0 12px rgba(242, 201, 76, 0.28);
+}
+
+.home-action-title {
+  color: #f2c94c;
+  font-size: 10.5px;
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: 0.25px;
+}
+
+.home-action-subtitle {
+  margin-top: 5px;
+  color: #ffffff;
+  font-size: 7.7px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.secondary-menu-box {
+  margin-top: 2px;
+  border-radius: 13px;
+  border: 1px solid rgba(242, 201, 76, 0.38);
+  background: rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.secondary-menu-box summary {
+  min-height: 42px;
+  padding: 13px 12px;
+  color: #f2c94c;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 900;
+  cursor: pointer;
+  list-style: none;
+}
+
+.secondary-menu-box summary::-webkit-details-marker {
+  display: none;
+}
+
+.secondary-dashboard-menu {
+  padding: 0 8px 8px;
+  gap: 7px;
+}
+
+.secondary-dashboard-menu .quick-card {
+  min-height: 50px;
+  border-color: rgba(185, 139, 24, 0.70);
+}
+
+.secondary-dashboard-menu .quick-main {
+  font-size: 11px;
+}
+
+.secondary-dashboard-menu .quick-sub {
+  font-size: 7.5px;
+}
