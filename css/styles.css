@@ -1135,3 +1135,43 @@ body {
     margin-bottom: 18px;
   }
 }
+
+/* BLOC 6.4 - fix urgent scroll meniu Administrare pe desktop */
+@media (min-width: 701px) {
+  .login-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden !important;
+  }
+
+  .brand-block,
+  .login-form,
+  .message-box,
+  .reset-password-panel {
+    flex: 0 0 auto;
+  }
+
+  .user-panel {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 4px;
+    padding-bottom: 28px;
+    scrollbar-width: thin;
+  }
+
+  .user-panel::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .user-panel::-webkit-scrollbar-thumb {
+    background: rgba(242, 201, 76, 0.45);
+    border-radius: 999px;
+  }
+
+  .secondary-menu-box[open] {
+    margin-bottom: 18px;
+  }
+}
