@@ -114,9 +114,14 @@ async function openSettingsPanel() {
   });
 }
 
-function closeSettingsPanel() {
+async function closeSettingsPanel() {
   settingsPanel.classList.add('hidden');
   dashboardPanel.classList.remove('hidden');
+
+  if (currentProfileType === 'company_user' && currentCompanyId) {
+    await loadDashboardModules(currentProfileType, currentCompanyId);
+  }
+
   hideMessage();
 }
 
