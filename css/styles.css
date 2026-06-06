@@ -1076,3 +1076,34 @@ body {
 .secondary-dashboard-menu .quick-sub {
   font-size: 7.5px;
 }
+
+/* BLOC 6.2 - corecție nume companie și scroll meniu */
+.brand-block h1 {
+  max-width: 310px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 24px;
+  line-height: 1.08;
+  letter-spacing: 3px;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 701px) {
+  .login-card {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+
+  .login-card::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 390px) {
+  .brand-block h1 {
+    max-width: 290px;
+    font-size: 22px;
+    letter-spacing: 2.4px;
+  }
+}
