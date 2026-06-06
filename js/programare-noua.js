@@ -22,5 +22,11 @@ window.loadProgramareNouaPage = async function loadProgramareNouaPage(options = 
   if (backButton && typeof options.onClose === 'function') {
     backButton.onclick = options.onClose;
   }
-};
 
+  /* BLOC CLIENT - momentan doar pregătim câmpurile, fără salvare și fără Supabase */
+  const clientSearchInput = document.getElementById('programareClientSearch');
+
+  if (clientSearchInput) {
+    clientSearchInput.focus();
+  }
+};
