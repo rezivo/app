@@ -1,13 +1,37 @@
-<!-- BLOC PROGRAMARE NOUĂ - schelet modul separat -->
+<!-- BLOC PROGRAMARE NOUĂ - client -->
 <div class="module-page-top-row">
   <button type="button" id="programareNouaBackButton" class="module-page-back-button" aria-label="Înapoi">‹</button>
   <div>
     <h3>PROGRAMARE NOUĂ</h3>
-    <span>Modul separat Rezivo</span>
+    <span>Pasul 1: Client</span>
   </div>
 </div>
 
-<div class="module-placeholder-card">
-  <div class="module-placeholder-title">Schelet pregătit</div>
-  <div class="module-placeholder-text">Aici vom construi pas cu pas: client, serviciu, resursă, dată, oră și salvare programare.</div>
+<!-- BLOC CLIENT - alegere între client existent și client nou -->
+<div class="programare-client-grid">
+  <section class="programare-client-card">
+    <div class="programare-client-title">CLIENT EXISTENT</div>
+    <div class="programare-client-text">Caută un client deja salvat.</div>
+
+    <label class="programare-field-label" for="programareClientSearch">Caută după nume sau telefon</label>
+    <input id="programareClientSearch" class="programare-input" type="text" placeholder="Ex: Popescu Maria" autocomplete="off" />
+
+    <div class="programare-empty-box">Lista de rezultate va apărea aici.</div>
+  </section>
+
+  <section class="programare-client-card">
+    <div class="programare-client-title">CLIENT NOU</div>
+    <div class="programare-client-text">Completează datele clientului nou.</div>
+
+    <label class="programare-field-label" for="programareClientNume">Nume client</label>
+    <input id="programareClientNume" class="programare-input" type="text" placeholder="Nume și prenume" autocomplete="off" />
+
+    <label class="programare-field-label" for="programareClientTelefon">Telefon</label>
+    <input id="programareClientTelefon" class="programare-input" type="tel" placeholder="Telefon client" autocomplete="off" />
+
+    <label class="programare-field-label" for="programareClientEmail">Email opțional</label>
+    <input id="programareClientEmail" class="programare-input" type="email" placeholder="email@exemplu.ro" autocomplete="off" />
+  </section>
 </div>
+
+<div class="programare-next-note">Urmează pasul următor: alegerea serviciului.</div>
